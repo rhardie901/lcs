@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lewis Construction Services · We Build Your Dreams</title>
+    <title>Lewis Construction and Design · We Build Your Dreams</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
@@ -527,6 +527,83 @@
             .ba-item img, .work-item img { height: 200px; }
         }
 
+        
+        /* DESIGN-BUILD */
+        #design-build { background: var(--charcoal); }
+        #design-build .section-title { color: var(--white); }
+
+        .db-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            margin-top: 48px;
+            align-items: start;
+        }
+
+        .db-left p {
+            font-size: 1.05rem;
+            color: var(--light-gray);
+            line-height: 1.8;
+            margin-bottom: 20px;
+            max-width: 520px;
+            opacity: 0.85;
+        }
+
+        .db-steps { list-style: none; margin-top: 8px; }
+        .db-steps li {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+        }
+        .db-step-num {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--red);
+            line-height: 1;
+            flex-shrink: 0;
+            width: 32px;
+        }
+        .db-step-content h4 {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: var(--white);
+            margin-bottom: 4px;
+        }
+        .db-step-content p {
+            font-size: 0.88rem;
+            color: var(--light-gray);
+            opacity: 0.7;
+            line-height: 1.6;
+            margin: 0;
+            max-width: 100%;
+        }
+
+        .db-callout {
+            background: rgba(227,0,0,0.08);
+            border-left: 4px solid var(--red);
+            padding: 28px 32px;
+            margin-top: 36px;
+        }
+        .db-callout p {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--white);
+            line-height: 1.5;
+            margin: 0;
+            opacity: 1 !important;
+        }
+
+        @media (max-width: 960px) {
+            .db-grid { grid-template-columns: 1fr; gap: 48px; }
+        }
+
         </style>
 </head>
 <body>
@@ -537,6 +614,7 @@
     <ul class="nav-links">
         <li><a href="#services">Services</a></li>
         <li><a href="#commercial">Commercial</a></li>
+        <li><a href="#design-build">Design-Build</a></li>
         <li><a href="#work">Our Work</a></li>
         <li><a href="#why">Why Us</a></li>
         <li><a href="#contact" class="nav-cta">Get a Quote</a></li>
@@ -546,7 +624,7 @@
 <!-- HERO -->
 <section id="hero">
     <div class="hero-inner">
-        <div class="hero-eyebrow">Licensed General Contractor &nbsp;·&nbsp; License #124529 &nbsp;·&nbsp; DMV Area</div>
+        <div class="hero-eyebrow">Licensed General Contractor &nbsp;·&nbsp; Design-Build &nbsp;·&nbsp; License #124529 &nbsp;·&nbsp; DMV Area</div>
         <h1 class="hero-headline">
             We Build<br><span>Your Dreams.</span>
         </h1>
@@ -640,6 +718,56 @@
     </div>
 </section>
 
+<!-- DESIGN-BUILD -->
+<section id="design-build">
+    <div class="section-eyebrow">Design-Build</div>
+    <h2 class="section-title">One Contractor.<br>From Idea to Done.</h2>
+
+    <div class="db-grid">
+        <div class="db-left">
+            <p>Most homeowners hire a designer, then go find a contractor — and spend months managing two separate people who've never worked together. We cut that out entirely.</p>
+            <p>Carroll brings over 30 years of construction experience to the design process. He knows what's buildable, what it costs, and what will hold up. When he designs it, he builds it — no translation errors, no finger-pointing, no surprises.</p>
+
+            <div class="db-callout">
+                <p>"We design it. We build it. You deal with one person the whole way through."</p>
+            </div>
+        </div>
+
+        <div>
+            <ul class="db-steps">
+                <li class="fade-up">
+                    <div class="db-step-num">01</div>
+                    <div class="db-step-content">
+                        <h4>Consultation</h4>
+                        <p>We walk the property with you, understand what you want, and tell you what's realistic — scope, cost, and timeline — before anything is committed.</p>
+                    </div>
+                </li>
+                <li class="fade-up">
+                    <div class="db-step-num">02</div>
+                    <div class="db-step-content">
+                        <h4>Design</h4>
+                        <p>Carroll develops the plan — layout, materials, finishes, structural requirements. Built around your budget, not the other way around.</p>
+                    </div>
+                </li>
+                <li class="fade-up">
+                    <div class="db-step-num">03</div>
+                    <div class="db-step-content">
+                        <h4>Proposal</h4>
+                        <p>You get a clear written scope and fixed price before we break ground. No surprises once work starts.</p>
+                    </div>
+                </li>
+                <li class="fade-up">
+                    <div class="db-step-num">04</div>
+                    <div class="db-step-content">
+                        <h4>Build</h4>
+                        <p>We execute. Carroll is on site. You get updates throughout. We finish what we started.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+
 <!-- WORK -->
 <section id="work">
     <div class="section-eyebrow">Our Work</div>
@@ -650,7 +778,7 @@
     <div class="ba-label-header fade-up">Second-Floor Addition &nbsp;·&nbsp; Project 1</div>
     <div class="before-after">
         <div class="ba-item fade-up">
-            <img src="/images/addition_before.png" alt="Before - single story brick home">
+            <img src="/images/addition_before.png" alt="Before - single story brick home" style="object-position: center 30%;">
             <div class="ba-label">
                 <span>Brick Ranch</span>
                 <span class="ba-tag">Before</span>
@@ -677,7 +805,7 @@
         <div class="ba-item fade-up">
             <img src="/images/addition2_after.jpg" alt="After - fully finished exterior">
             <div class="ba-label">
-                <span>Fully Finished Exterior</span>
+                <span>Full Gut Renovation &amp; Rebuild</span>
                 <span class="ba-tag">After</span>
             </div>
         </div>
@@ -691,7 +819,7 @@
         </div>
         <div class="work-item fade-up">
             <img src="/images/house_front.jpg" alt="Exterior renovation">
-            <div class="work-label">Full Exterior Renovation</div>
+            <div class="work-label">Full Interior &amp; Exterior Renovation</div>
         </div>
         <div class="work-item fade-up">
             <img src="/images/house_deck.jpg" alt="Elevated deck build">
