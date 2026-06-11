@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lewis Construction Services · We Build Your Dreams</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --red: #E30000;
+            --red-dark: #B50000;
+            --charcoal: #2A2A2A;
+            --off-white: #F7F5F2;
+            --mid-gray: #6B6B6B;
+            --light-gray: #E8E6E3;
+            --white: #FFFFFF;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Barlow', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--off-white);
+            color: var(--charcoal);
+            line-height: 1.6;
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            background: var(--charcoal);
+            padding: 0 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+            transition: box-shadow 0.3s;
+        }
+        nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.5); }
+
+        .nav-logo { height: 60px; width: auto; display: block; }
+
+        .nav-links {
+            display: flex;
+            gap: 36px;
+            list-style: none;
+            align-items: center;
+        }
+        .nav-links a {
+            color: var(--light-gray);
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--red); }
+
+        .nav-cta {
+            background: var(--red) !important;
+            color: var(--white) !important;
+            padding: 10px 24px !important;
+            font-weight: 600 !important;
+        }
+        .nav-cta:hover { background: var(--red-dark) !important; color: var(--white) !important; }
+
+        /* HERO */
+        #hero {
+            background: var(--charcoal);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 80px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 80% 50%, rgba(227,0,0,0.08) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .hero-inner {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .hero-eyebrow {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--red);
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .hero-eyebrow::before {
+            content: '';
+            display: block;
+            width: 32px;
+            height: 2px;
+            background: var(--red);
+        }
+
+        .hero-headline {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 800;
+            font-size: clamp(3.5rem, 7vw, 6.5rem);
+            line-height: 0.95;
+            color: var(--white);
+            text-transform: uppercase;
+            letter-spacing: -0.01em;
+            margin-bottom: 32px;
+            max-width: 820px;
+        }
+        .hero-headline span { color: var(--red); }
+
+        .hero-sub {
+            font-size: 1.1rem;
+            color: var(--light-gray);
+            max-width: 520px;
+            margin-bottom: 52px;
+            line-height: 1.75;
+            opacity: 0.85;
+        }
+
+        .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+
+        .btn-primary {
+            display: inline-block;
+            background: var(--red);
+            color: var(--white);
+            padding: 16px 40px;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: background 0.2s, transform 0.2s;
+        }
+        .btn-primary:hover { background: var(--red-dark); transform: translateY(-2px); }
+
+        .btn-secondary {
+            display: inline-block;
+            border: 2px solid rgba(255,255,255,0.25);
+            color: var(--light-gray);
+            padding: 16px 40px;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: border-color 0.2s, color 0.2s;
+        }
+        .btn-secondary:hover { border-color: var(--red); color: var(--white); }
+
+        .hero-stats {
+            display: flex;
+            gap: 60px;
+            margin-top: 72px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        .stat-num {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--white);
+            line-height: 1;
+        }
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--mid-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 4px;
+        }
+
+        /* SECTION COMMON */
+        section { padding: 100px 80px; }
+
+        .section-eyebrow {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--red);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .section-eyebrow::before {
+            content: '';
+            display: block;
+            width: 4px;
+            height: 18px;
+            background: var(--red);
+            flex-shrink: 0;
+        }
+
+        .section-title {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 800;
+            font-size: clamp(2.2rem, 4vw, 3.4rem);
+            line-height: 1.05;
+            text-transform: uppercase;
+            letter-spacing: -0.01em;
+            margin-bottom: 20px;
+        }
+
+        /* SERVICES */
+        #services { background: var(--white); }
+        #services .section-title { color: var(--charcoal); }
+
+        .services-intro {
+            font-size: 1.05rem;
+            color: var(--mid-gray);
+            max-width: 580px;
+            margin-bottom: 60px;
+            line-height: 1.75;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            background: var(--light-gray);
+        }
+
+        .service-card {
+            background: var(--white);
+            padding: 44px 36px;
+            border-top: 3px solid transparent;
+            transition: border-color 0.25s, background 0.25s;
+        }
+        .service-card:hover {
+            border-top-color: var(--red);
+            background: #FFF8F8;
+        }
+
+        .service-icon {
+            font-size: 2rem;
+            margin-bottom: 18px;
+            display: block;
+        }
+
+        .service-name {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            color: var(--charcoal);
+            margin-bottom: 12px;
+        }
+
+        .service-desc {
+            font-size: 0.92rem;
+            color: var(--mid-gray);
+            line-height: 1.7;
+        }
+
+        /* WHY US */
+        #why { background: var(--charcoal); }
+        #why .section-title { color: var(--white); }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: start;
+            margin-top: 56px;
+        }
+
+        .why-text p {
+            font-size: 1.05rem;
+            color: var(--light-gray);
+            line-height: 1.8;
+            margin-bottom: 20px;
+            max-width: 520px;
+            opacity: 0.85;
+        }
+
+        .why-list { list-style: none; }
+        .why-list li {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            padding: 18px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+            font-size: 0.95rem;
+            color: var(--light-gray);
+            line-height: 1.55;
+        }
+        .why-list li::before {
+            content: '✓';
+            color: var(--red);
+            font-weight: 700;
+            font-size: 1rem;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        /* COMMERCIAL */
+        #commercial {
+            background: var(--off-white);
+            border-left: 0;
+        }
+        #commercial .section-title { color: var(--charcoal); }
+
+        .commercial-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            margin-top: 48px;
+        }
+
+        .commercial-block {
+            padding: 36px;
+            background: var(--white);
+            border-left: 4px solid var(--red);
+        }
+
+        .commercial-block h3 {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--charcoal);
+            margin-bottom: 12px;
+        }
+        .commercial-block p {
+            font-size: 0.92rem;
+            color: var(--mid-gray);
+            line-height: 1.7;
+        }
+
+        /* CONTACT */
+        #contact {
+            background: var(--charcoal);
+            text-align: center;
+            padding: 120px 80px;
+            position: relative;
+        }
+
+        #contact::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 80%, rgba(227,0,0,0.08) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        #contact .section-eyebrow { justify-content: center; }
+        #contact .section-eyebrow::before { display: none; }
+
+        .contact-title {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 800;
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            text-transform: uppercase;
+            color: var(--white);
+            line-height: 1;
+            margin-bottom: 24px;
+        }
+        .contact-title span { color: var(--red); }
+
+        .contact-sub {
+            color: var(--light-gray);
+            font-size: 1rem;
+            max-width: 460px;
+            margin: 0 auto 48px;
+            opacity: 0.75;
+            line-height: 1.75;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-top: 52px;
+            flex-wrap: wrap;
+        }
+
+        .contact-item a,
+        .contact-item span {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--white);
+            text-decoration: none;
+            letter-spacing: 0.03em;
+            transition: color 0.2s;
+        }
+        .contact-item a:hover { color: var(--red); }
+        .contact-item-label {
+            font-size: 0.72rem;
+            color: var(--mid-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 6px;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #1a1a1a;
+            padding: 32px 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-logo { height: 40px; width: auto; opacity: 0.8; }
+
+        .footer-meta {
+            font-size: 0.76rem;
+            color: rgba(255,255,255,0.25);
+        }
+        .footer-meta a {
+            color: rgba(227,0,0,0.5);
+            text-decoration: none;
+        }
+
+        /* ANIMATIONS */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.65s ease, transform 0.65s ease;
+        }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+        /* RESPONSIVE */
+        @media (max-width: 960px) {
+            nav { padding: 0 28px; }
+            .nav-links { display: none; }
+            section, #hero, #contact { padding: 80px 32px; }
+            footer { padding: 28px 32px; flex-direction: column; gap: 12px; text-align: center; }
+            .hero-stats { gap: 32px; flex-wrap: wrap; }
+            .services-grid { grid-template-columns: 1fr; }
+            .why-grid { grid-template-columns: 1fr; gap: 48px; }
+            .commercial-grid { grid-template-columns: 1fr; gap: 24px; }
+            .contact-info { gap: 32px; }
+        }
+    
+        /* WORK */
+        #work { background: var(--charcoal); }
+        #work .section-title { color: var(--white); }
+        #work .services-intro { color: rgba(230,230,230,0.7); }
+
+        .before-after {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+            margin-top: 48px;
+            margin-bottom: 6px;
+        }
+        .ba-item { overflow: hidden; position: relative; }
+        .ba-item img {
+            width: 100%; height: 320px; object-fit: cover; display: block;
+            transition: transform 0.4s ease;
+        }
+        .ba-item:hover img { transform: scale(1.03); }
+        .ba-label {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: white;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 0.9rem; font-weight: 700;
+            letter-spacing: 0.14em; text-transform: uppercase;
+            padding: 36px 16px 14px;
+            display: flex; align-items: flex-end; justify-content: space-between;
+        }
+        .ba-tag {
+            background: var(--red);
+            font-size: 0.7rem;
+            padding: 3px 10px;
+            letter-spacing: 0.12em;
+        }
+        .work-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
+        }
+        .work-item { overflow: hidden; position: relative; }
+        .work-item img {
+            width: 100%; height: 240px; object-fit: cover; display: block;
+            transition: transform 0.4s ease;
+        }
+        .work-item:hover img { transform: scale(1.04); }
+        .work-label {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.72));
+            color: white;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 0.8rem; font-weight: 600;
+            letter-spacing: 0.12em; text-transform: uppercase;
+            padding: 28px 12px 10px;
+        }
+        .ba-label-header {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--red);
+            margin-bottom: 6px;
+        }
+        @media (max-width: 960px) {
+            .before-after { grid-template-columns: 1fr; }
+            .work-grid { grid-template-columns: 1fr 1fr; }
+            .ba-item img, .work-item img { height: 200px; }
+        }
+
+        </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+    <img src="/images/logo.png" alt="Lewis Construction Services" class="nav-logo">
+    <ul class="nav-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#commercial">Commercial</a></li>
+        <li><a href="#work">Our Work</a></li>
+        <li><a href="#why">Why Us</a></li>
+        <li><a href="#contact" class="nav-cta">Get a Quote</a></li>
+    </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+    <div class="hero-inner">
+        <div class="hero-eyebrow">Licensed General Contractor &nbsp;·&nbsp; License #124529 &nbsp;·&nbsp; DMV Area</div>
+        <h1 class="hero-headline">
+            We Build<br><span>Your Dreams.</span>
+        </h1>
+        <p class="hero-sub">
+            From ground-up construction to full gut renovations — residential and commercial work done right, on time, and on budget. Serving DC, Maryland, and Virginia.
+        </p>
+        <div class="hero-actions">
+            <a href="#contact" class="btn-primary">Get a Free Quote</a>
+            <a href="#services" class="btn-secondary">See Our Work</a>
+        </div>
+        <div class="hero-stats">
+            <div>
+                <div class="stat-num">30+</div>
+                <div class="stat-label">Years Experience</div>
+            </div>
+            <div>
+                <div class="stat-num">500+</div>
+                <div class="stat-label">Projects Completed</div>
+            </div>
+            <div>
+                <div class="stat-num">DMV</div>
+                <div class="stat-label">DC · MD · VA</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+    <div class="section-eyebrow">What We Do</div>
+    <h2 class="section-title">Residential Services</h2>
+    <p class="services-intro">We handle everything from cosmetic updates to full new construction. No job too big, no detail too small.</p>
+
+    <div class="services-grid">
+        <div class="service-card fade-up">
+            <span class="service-icon">🏠</span>
+            <div class="service-name">New Construction</div>
+            <p class="service-desc">Building from the ground up. We manage the full build from foundation to finish, coordinating every trade on your behalf.</p>
+        </div>
+        <div class="service-card fade-up">
+            <span class="service-icon">🔨</span>
+            <div class="service-name">Full Renovations</div>
+            <p class="service-desc">Gut rehabs, kitchen and bath remodels, additions, and vertical expansions. We deliver complete transformations.</p>
+        </div>
+        <div class="service-card fade-up">
+            <span class="service-icon">🏗️</span>
+            <div class="service-name">Roofing</div>
+            <p class="service-desc">Full roof replacements, repairs, and installations. Quality materials, clean workmanship, built to last.</p>
+        </div>
+        <div class="service-card fade-up">
+            <span class="service-icon">🪵</span>
+            <div class="service-name">Decks &amp; Additions</div>
+            <p class="service-desc">Custom decks, patios, room additions, and structural expansions — designed to add real value to your property.</p>
+        </div>
+        <div class="service-card fade-up">
+            <span class="service-icon">⚡</span>
+            <div class="service-name">Electrical &amp; Plumbing</div>
+            <p class="service-desc">Full electrical and plumbing services for residential projects. Panels, wiring, rough-in, and finish work.</p>
+        </div>
+        <div class="service-card fade-up">
+            <span class="service-icon">🎨</span>
+            <div class="service-name">Interior Finishes</div>
+            <p class="service-desc">Drywall, painting, flooring, trim, and finish carpentry. The details that make a house feel like home.</p>
+        </div>
+    </div>
+</section>
+
+<!-- COMMERCIAL -->
+<section id="commercial">
+    <div class="section-eyebrow">Commercial Work</div>
+    <h2 class="section-title">We Work Commercial Too</h2>
+    <p class="services-intro">Lewis Construction Services takes on commercial projects of all sizes — from tenant fit-outs to full build-outs.</p>
+
+    <div class="commercial-grid">
+        <div class="commercial-block fade-up">
+            <h3>Electrical</h3>
+            <p>Commercial panel upgrades, service installations, lighting, conduit runs, and code compliance work. We know what inspectors look for and we build to pass.</p>
+        </div>
+        <div class="commercial-block fade-up">
+            <h3>Plumbing</h3>
+            <p>Rough-in, finish plumbing, commercial fixture installations, and water service work. Licensed and insured for commercial scope.</p>
+        </div>
+        <div class="commercial-block fade-up">
+            <h3>Buildouts &amp; Renovations</h3>
+            <p>Office and retail buildouts, drywall, ceilings, flooring, and interior finishes for commercial properties.</p>
+        </div>
+        <div class="commercial-block fade-up">
+            <h3>Subcontracting</h3>
+            <p>We work as a reliable sub for GCs and developers who need a dependable crew for specific scopes. Call us.</p>
+        </div>
+    </div>
+</section>
+
+<!-- WORK -->
+<section id="work">
+    <div class="section-eyebrow">Our Work</div>
+    <h2 class="section-title">Real Projects.<br>Real Results.</h2>
+    <p class="services-intro">A sample of completed work across the DMV — from full additions to kitchens, baths, and custom decks.</p>
+
+    <!-- Before / After Feature -->
+    <div class="ba-label-header fade-up">Second-Floor Addition &nbsp;·&nbsp; Project 1</div>
+    <div class="before-after">
+        <div class="ba-item fade-up">
+            <img src="/images/addition_before.png" alt="Before - single story brick home">
+            <div class="ba-label">
+                <span>Brick Ranch</span>
+                <span class="ba-tag">Before</span>
+            </div>
+        </div>
+        <div class="ba-item fade-up">
+            <img src="/images/addition_after.png" alt="After - full second floor addition">
+            <div class="ba-label">
+                <span>Full Second Floor Added</span>
+                <span class="ba-tag">After</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="ba-label-header fade-up" style="margin-top:24px;">Second-Floor Addition &nbsp;·&nbsp; Project 2</div>
+    <div class="before-after">
+        <div class="ba-item fade-up">
+            <img src="/images/addition2_before.png" alt="Before - house mid-construction">
+            <div class="ba-label">
+                <span>Frame Up, No Siding</span>
+                <span class="ba-tag">Before</span>
+            </div>
+        </div>
+        <div class="ba-item fade-up">
+            <img src="/images/addition2_after.jpg" alt="After - fully finished exterior">
+            <div class="ba-label">
+                <span>Fully Finished Exterior</span>
+                <span class="ba-tag">After</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Work Grid -->
+    <div class="work-grid">
+        <div class="work-item fade-up">
+            <img src="/images/deck.jpeg" alt="Custom gazebo deck">
+            <div class="work-label">Custom Gazebo Deck</div>
+        </div>
+        <div class="work-item fade-up">
+            <img src="/images/house_front.jpg" alt="Exterior renovation">
+            <div class="work-label">Full Exterior Renovation</div>
+        </div>
+        <div class="work-item fade-up">
+            <img src="/images/house_deck.jpg" alt="Elevated deck build">
+            <div class="work-label">Elevated Deck Build</div>
+        </div>
+        <div class="work-item fade-up">
+            <img src="/images/brick_front.jpg" alt="Brick ranch renovation">
+            <div class="work-label">Brick Ranch Renovation</div>
+        </div>
+        <div class="work-item fade-up">
+            <img src="/images/bathroom.jpeg" alt="Bathroom renovation">
+            <div class="work-label">Bathroom Renovation</div>
+        </div>
+        <div class="work-item fade-up">
+            <img src="/images/sm_kitchen.jpeg" alt="Kitchen remodel">
+            <div class="work-label">Kitchen Remodel</div>
+        </div>
+    </div>
+</section>
+
+<!-- WHY US -->
+<section id="why">
+    <div class="section-eyebrow">Why Lewis</div>
+    <h2 class="section-title">We Show Up.<br>We Do the Work.</h2>
+
+    <div class="why-grid">
+        <div class="why-text">
+            <p>Carroll Lewis has been building in the DMV for over 30 years. Hundreds of completed projects, every type of residential and commercial work, and a reputation built on showing up and finishing the job.</p>
+            <p>We don't disappear after the contract is signed. We're on site, we're accountable, and we don't cut corners.</p>
+            <a href="#contact" class="btn-primary" style="margin-top:12px;">Get a Quote</a>
+        </div>
+        <ul class="why-list">
+            <li>30+ years of construction experience in the DMV</li>
+            <li>Licensed general contractor — residential and commercial</li>
+            <li>Full range of trades under one roof</li>
+            <li>We work with investors, homeowners, and developers</li>
+            <li>Reliable subcontracting for larger GCs</li>
+            <li>Serving DC, Maryland, and Virginia</li>
+        </ul>
+    </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+    <div class="section-eyebrow">Get Started</div>
+    <h2 class="contact-title">Ready to <span>Build?</span></h2>
+    <p class="contact-sub">Tell us what you need. We'll get back to you fast with a straight answer and a fair price.</p>
+    <a href="tel:3014522823" class="btn-primary">Call 301.452.2823</a>
+
+    <div class="contact-info">
+        <div class="contact-item">
+            <div class="contact-item-label">Phone</div>
+            <a href="tel:3014522823">301.452.2823</a>
+        </div>
+        <div class="contact-item">
+            <div class="contact-item-label">Email</div>
+            <a href="mailto:info@lewisconstruction.design">info@lewisconstruction.design</a>
+        </div>
+        <div class="contact-item">
+            <div class="contact-item-label">Service Area</div>
+            <span>DC · Maryland · Virginia</span>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <img src="/images/logo.png" alt="Lewis Construction Services" class="footer-logo">
+    <div class="footer-meta">
+        © 2025 Lewis Construction Services. All rights reserved. &nbsp;·&nbsp; MD License #124529 &nbsp;·&nbsp;
+        <a href="mailto:info@lewisconstruction.design">info@lewisconstruction.design</a>
+    </div>
+</footer>
+
+<script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+        navbar.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => entry.target.classList.add('visible'), i * 80);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
