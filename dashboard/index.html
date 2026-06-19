@@ -1,1 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Dashboard · Lewis Construction and Design</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--charcoal:#2A2A2A;--accent:#E30000;--accent-light:#FF4D4D;--off-white:#F5F3EF;--border:rgba(42,42,42,0.12);--success:#2d6a4f;--warning:#b5530a;--danger:#922b21;--info:#1a5276;--success-bg:#d8f3dc;--warning-bg:#fef3e2;--danger-bg:#fde8e8;--info-bg:#d6eaf8;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--off-white);color:#1a1a1a;line-height:1.6;min-height:100vh;}
+nav{background:var(--charcoal);padding:0 48px;display:flex;align-items:center;justify-content:space-between;height:72px;position:sticky;top:0;z-index:50;}
+.nav-brand{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.nav-logo{height:52px;width:auto;}
+.nav-title{font-family:'Barlow Condensed',sans-serif;color:var(--accent);font-size:0.85rem;letter-spacing:0.1em;text-transform:uppercase;}
+.nav-sub{display:block;color:rgba(245,243,239,0.4);font-style:italic;font-size:0.68rem;letter-spacing:0.12em;margin-top:1px;}
+.nav-right{font-size:0.75rem;color:rgba(230,230,230,0.35);}
+.app{display:flex;min-height:calc(100vh - 72px);}
+.sidebar{width:220px;flex-shrink:0;background:var(--charcoal);padding:28px 0;}
+.sidebar-section{padding:0 16px;margin-bottom:20px;}
+.sidebar-label{font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(227,0,0,0.4);padding:0 12px;margin-bottom:6px;}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:6px;cursor:pointer;font-size:0.82rem;color:rgba(230,230,230,0.5);transition:all 0.15s;border:none;background:none;width:100%;text-align:left;}
+.nav-item:hover{color:var(--off-white);background:rgba(255,255,255,0.06);}
+.nav-item.active{color:var(--accent);background:rgba(227,0,0,0.1);}
+.nav-icon{width:15px;height:15px;flex-shrink:0;}
+.main{flex:1;padding:40px 48px;overflow-x:hidden;}
+.page{display:none;}.page.active{display:block;}
+.page-heading{margin-bottom:32px;}
+.page-heading h1{font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;color:var(--charcoal);margin-bottom:4px;}
+.page-heading p{font-size:0.85rem;color:#999;}
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:32px;}
+.metric-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:18px 20px;}
+.metric-label{font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:#bbb;margin-bottom:8px;}
+.metric-value{font-size:1.7rem;font-weight:700;color:var(--charcoal);line-height:1;}
+.metric-sub{font-size:0.73rem;color:#bbb;margin-top:5px;}
+.card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:22px 26px;margin-bottom:16px;}
+.card-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;gap:12px;}
+.card-title{font-family:'Barlow Condensed',sans-serif;font-size:1rem;color:var(--charcoal);}
+.card-meta{font-size:0.78rem;color:#999;margin-top:2px;}
+.section-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}
+.section-title{font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;color:var(--charcoal);}
+.badge{display:inline-block;font-size:0.67rem;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;padding:3px 9px;border-radius:20px;}
+.badge-active,.badge-approved,.badge-accepted,.badge-on_track{background:var(--success-bg);color:var(--success);}
+.badge-planning,.badge-oversight,.badge-new,.badge-in_progress{background:var(--info-bg);color:var(--info);}
+.badge-complete,.badge-not_started,.badge-reviewed{background:#f0f0f0;color:#888;}
+.badge-pending,.badge-on_hold,.badge-at_risk{background:var(--warning-bg);color:var(--warning);}
+.badge-declined,.badge-blocked,.badge-behind,.badge-over{background:var(--danger-bg);color:var(--danger);}
+.badge-archived{background:#f0f0f0;color:#aaa;}
+.progress-wrap{margin-top:12px;}
+.progress-row{display:flex;justify-content:space-between;font-size:0.78rem;color:#999;margin-bottom:6px;}
+.progress-row span:first-child{color:var(--charcoal);font-weight:600;}
+.progress-bar{height:5px;background:#eee;border-radius:3px;overflow:hidden;}
+.progress-fill{height:100%;border-radius:3px;background:var(--accent);}
+.progress-fill.over{background:var(--danger);}
+.two-col{display:grid;grid-template-columns:auto 1fr;gap:5px 20px;font-size:0.82rem;align-items:baseline;}
+.two-col-label{color:#bbb;white-space:nowrap;}
+.two-col-val{color:var(--charcoal);}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;font-size:0.8rem;font-weight:600;border-radius:6px;border:1.5px solid var(--border);background:#fff;color:var(--charcoal);cursor:pointer;transition:all 0.15s;font-family:inherit;}
+.btn:hover{border-color:#aaa;}
+.btn-primary{background:var(--charcoal);color:var(--accent);border-color:var(--charcoal);}
+.btn-primary:hover{background:#2d3338;}
+.btn-sm{padding:5px 12px;font-size:0.74rem;}
+.project-select-wrap{display:flex;align-items:center;gap:12px;margin-bottom:24px;}
+.project-select-wrap label{font-size:0.72rem;color:#bbb;white-space:nowrap;letter-spacing:0.08em;text-transform:uppercase;}
+select.project-select{padding:8px 14px;font-size:0.85rem;border:1.5px solid #ddd;border-radius:6px;background:#fff;color:var(--charcoal);font-family:inherit;min-width:240px;outline:none;}
+select.project-select:focus{border-color:var(--accent);}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:200;align-items:center;justify-content:center;padding:20px;}
+.modal-overlay.open{display:flex;}
+.modal{background:#fff;border-radius:12px;padding:28px 32px;width:min(560px,100%);max-height:90vh;overflow-y:auto;}
+.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;}
+.modal-title{font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;color:var(--charcoal);}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 20px;}
+.form-group{margin-bottom:16px;}
+.form-group.full{grid-column:1/-1;}
+.form-group label{display:block;font-size:0.72rem;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:#bbb;margin-bottom:6px;}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:9px 12px;font-size:0.87rem;border:1.5px solid #ddd;border-radius:6px;font-family:inherit;color:var(--charcoal);background:#fff;outline:none;transition:border-color 0.15s;}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--accent);}
+.form-group textarea{min-height:90px;resize:vertical;line-height:1.6;}
+.modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:8px;border-top:1px solid #f0f0f0;padding-top:16px;}
+.table-wrap{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;font-size:0.82rem;}
+th{text-align:left;padding:10px 14px;border-bottom:1.5px solid var(--border);font-size:0.68rem;letter-spacing:0.08em;text-transform:uppercase;color:#bbb;font-weight:600;white-space:nowrap;}
+td{padding:11px 14px;border-bottom:1px solid #f5f5f5;vertical-align:middle;}
+tr:last-child td{border-bottom:none;}
+.empty-state{text-align:center;padding:48px 24px;color:#ccc;font-size:0.85rem;}
+.report-card{border-left:3px solid var(--accent);}
+.report-section{margin-bottom:10px;}
+.report-section-label{font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:#bbb;margin-bottom:4px;font-weight:600;}
+.report-section-content{font-size:0.85rem;color:#444;line-height:1.65;}
+.error-banner{display:none;background:var(--danger-bg);border:1px solid rgba(146,43,33,0.3);color:var(--danger);font-size:0.82rem;padding:10px 16px;border-radius:6px;margin-bottom:20px;}
+.error-banner.show{display:block;}
+.loading{text-align:center;padding:48px;color:#ccc;font-size:0.85rem;}
+.auth-wrap{display:flex;align-items:center;justify-content:center;min-height:100vh;background:var(--charcoal);}
+.auth-card{background:#fff;border-radius:12px;padding:44px 48px;width:min(380px,95vw);text-align:center;}
+.auth-logo{height:64px;margin:0 auto 28px;display:block;}
+.auth-title{font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;color:var(--charcoal);margin-bottom:6px;}
+.auth-sub{font-size:0.82rem;color:#bbb;margin-bottom:28px;}
+.auth-input{width:100%;padding:12px 16px;font-size:1rem;border:1.5px solid #ddd;border-radius:6px;font-family:inherit;color:var(--charcoal);outline:none;transition:border-color 0.15s;margin-bottom:12px;text-align:center;letter-spacing:0.15em;}
+.auth-input:focus{border-color:var(--accent);}
+.auth-error{font-size:0.78rem;color:var(--danger);margin-bottom:12px;min-height:18px;}
+.auth-btn{width:100%;padding:13px;background:var(--charcoal);color:var(--accent);border:none;border-radius:6px;font-size:0.82rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;font-family:inherit;}
+.auth-btn:hover{background:#2d3338;}
+@media(max-width:768px){nav{padding:0 20px;}.sidebar{display:none;}.main{padding:24px 20px;}.form-grid,.two-col{grid-template-columns:1fr;}}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
 
+<div id="auth-screen" class="auth-wrap">
+  <div class="auth-card">
+    <img src="/images/logo.png" alt="Lewis Construction and Design" class="auth-logo">
+    <div class="auth-title">Project Dashboard</div>
+    <div class="auth-sub">Enter your access code</div>
+    <input type="password" id="auth-input" class="auth-input" placeholder="••••••••" onkeydown="if(event.key==='Enter')checkAuth()">
+    <div class="auth-error" id="auth-error"></div>
+    <button class="auth-btn" onclick="checkAuth()">Enter</button>
+  </div>
+</div>
+
+<div id="app" style="display:none;">
+<nav>
+  <a href="/" class="nav-brand">
+    <img src="/images/logo.png" alt="Lewis Construction and Design" class="nav-logo">
+    <div><div class="nav-title">Lewis Construction<span class="nav-sub">and Design</span></div></div>
+  </a>
+  <div class="nav-right">Internal Dashboard</div>
+</nav>
+<div class="app">
+  <aside class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-label">Overview</div>
+      <button class="nav-item active" onclick="showPage('dashboard',this)"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Dashboard</button>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Projects</div>
+      <button class="nav-item" onclick="showPage('projects',this)"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>All projects</button>
+      <button class="nav-item" onclick="showPage('budget',this)"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>Budget</button>
+      <button class="nav-item" onclick="showPage('schedule',this)"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Schedule</button>
+      <button class="nav-item" onclick="showPage('changeorders',this)"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>Change orders</button>
+      <button class="nav-item" onclick="showPage('reports',this)"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>Status reports</button>
+    </div>
+  </aside>
+  <main class="main">
+    <div id="error-banner" class="error-banner"></div>
+
+    <div id="page-dashboard" class="page active">
+      <div class="page-heading"><h1>Dashboard</h1><p>Portfolio overview and active projects</p></div>
+      <div class="metrics">
+        <div class="metric-card"><div class="metric-label">Active projects</div><div class="metric-value" id="m-active">—</div></div>
+        <div class="metric-card"><div class="metric-label">Approved budget</div><div class="metric-value" id="m-budget">—</div></div>
+        <div class="metric-card"><div class="metric-label">Total spent</div><div class="metric-value" id="m-spent">—</div></div>
+        <div class="metric-card"><div class="metric-label">Pending COs</div><div class="metric-value" id="m-co">—</div></div>
+      </div>
+      <div class="section-header"><div class="section-title">Active projects</div></div>
+      <div id="dash-projects"><div class="loading">Loading...</div></div>
+    </div>
+
+    <div id="page-projects" class="page">
+      <div class="page-heading"><h1>Projects</h1><p>All active and completed projects</p></div>
+      <div class="section-header"><div class="section-title">All projects</div><button class="btn btn-primary btn-sm" onclick="openModal('modal-project')">+ New project</button></div>
+      <div id="projects-list"><div class="loading">Loading...</div></div>
+    </div>
+
+    <div id="page-budget" class="page">
+      <div class="page-heading"><h1>Budget tracker</h1><p>Approved vs. actual by line item</p></div>
+      <div class="project-select-wrap"><label>Project</label><select id="budget-project-select" class="project-select" onchange="loadBudget()"><option value="">Select a project</option></select></div>
+      <div id="budget-content"></div>
+    </div>
+
+    <div id="page-schedule" class="page">
+      <div class="page-heading"><h1>Schedule &amp; tasks</h1><p>Task list, owners, and completion status</p></div>
+      <div class="project-select-wrap"><label>Project</label><select id="schedule-project-select" class="project-select" onchange="loadSchedule()"><option value="">Select a project</option></select></div>
+      <div id="schedule-content"></div>
+    </div>
+
+    <div id="page-changeorders" class="page">
+      <div class="page-heading"><h1>Change orders</h1><p>All change order requests and approvals</p></div>
+      <div class="project-select-wrap"><label>Project</label><select id="co-project-select" class="project-select" onchange="loadChangeOrders()"><option value="">Select a project</option></select></div>
+      <div id="co-content"></div>
+    </div>
+
+
+    <div id="page-reports" class="page">
+      <div class="page-heading"><h1>Status reports</h1><p>Weekly project status and client updates</p></div>
+      <div class="project-select-wrap"><label>Project</label><select id="report-project-select" class="project-select" onchange="loadReports()"><option value="">Select a project</option></select></div>
+      <div id="reports-content"></div>
+    </div>
+  </main>
+</div>
+</div>
+
+<!-- MODALS -->
+<div id="modal-project" class="modal-overlay"><div class="modal">
+  <div class="modal-header"><div class="modal-title">New project</div><button class="btn btn-sm" onclick="closeModal('modal-project')">✕</button></div>
+  <div class="form-grid">
+    <div class="form-group"><label>Project name *</label><input id="p-name"></div>
+    <div class="form-group"><label>Client name *</label><input id="p-client"></div>
+    <div class="form-group"><label>Client email</label><input id="p-email" type="email"></div>
+    <div class="form-group"><label>Address</label><input id="p-address"></div>
+    <div class="form-group"><label>Status</label><select id="p-status"><option value="active">Active</option><option value="on_hold">On hold</option><option value="complete">Complete</option></select></div>
+    <div class="form-group"><label>Approved budget ($)</label><input id="p-budget" type="number"></div>
+    <div class="form-group"><label>Start date</label><input id="p-start" type="date"></div>
+    <div class="form-group"><label>Target end date</label><input id="p-end" type="date"></div>
+    <div class="form-group full"><label>Notes</label><textarea id="p-notes"></textarea></div>
+  </div>
+  <div class="modal-actions"><button class="btn" onclick="closeModal('modal-project')">Cancel</button><button class="btn btn-primary" onclick="saveProject()">Save project</button></div>
+</div></div>
+
+<div id="modal-budget-item" class="modal-overlay"><div class="modal">
+  <div class="modal-header"><div class="modal-title">Add budget line item</div><button class="btn btn-sm" onclick="closeModal('modal-budget-item')">✕</button></div>
+  <div class="form-grid">
+    <div class="form-group"><label>Category *</label><input id="bi-category" placeholder="Kitchen, Plumbing..."></div>
+    <div class="form-group"><label>Description</label><input id="bi-desc"></div>
+    <div class="form-group"><label>Approved ($)</label><input id="bi-approved" type="number"></div>
+    <div class="form-group"><label>Actual ($)</label><input id="bi-actual" type="number"></div>
+    <div class="form-group full"><label>Notes</label><textarea id="bi-notes" style="min-height:60px;"></textarea></div>
+  </div>
+  <div class="modal-actions"><button class="btn" onclick="closeModal('modal-budget-item')">Cancel</button><button class="btn btn-primary" onclick="saveBudgetItem()">Save</button></div>
+</div></div>
+
+<div id="modal-task" class="modal-overlay"><div class="modal">
+  <div class="modal-header"><div class="modal-title">Add task</div><button class="btn btn-sm" onclick="closeModal('modal-task')">✕</button></div>
+  <div class="form-grid">
+    <div class="form-group full"><label>Task title *</label><input id="t-title"></div>
+    <div class="form-group"><label>Owner</label><select id="t-owner"><option value="Rob">Rob</option><option value="Carroll">Carroll</option><option value="Both">Both</option></select></div>
+    <div class="form-group"><label>Status</label><select id="t-status"><option value="not_started">Not started</option><option value="in_progress">In progress</option><option value="complete">Complete</option><option value="blocked">Blocked</option></select></div>
+    <div class="form-group"><label>Start date</label><input id="t-start" type="date"></div>
+    <div class="form-group"><label>End date</label><input id="t-end" type="date"></div>
+    <div class="form-group full"><label>Notes</label><textarea id="t-notes" style="min-height:60px;"></textarea></div>
+  </div>
+  <div class="modal-actions"><button class="btn" onclick="closeModal('modal-task')">Cancel</button><button class="btn btn-primary" onclick="saveTask()">Save</button></div>
+</div></div>
+
+<div id="modal-co" class="modal-overlay"><div class="modal">
+  <div class="modal-header"><div class="modal-title">Log change order</div><button class="btn btn-sm" onclick="closeModal('modal-co')">✕</button></div>
+  <div class="form-grid">
+    <div class="form-group full"><label>Description *</label><textarea id="co-desc"></textarea></div>
+    <div class="form-group"><label>Requested by</label><input id="co-requestor"></div>
+    <div class="form-group"><label>Amount ($)</label><input id="co-amount" type="number"></div>
+    <div class="form-group"><label>Status</label><select id="co-status"><option value="pending">Pending</option><option value="approved">Approved</option><option value="declined">Declined</option></select></div>
+    <div class="form-group"><label>Approved date</label><input id="co-date" type="date"></div>
+    <div class="form-group full"><label>Notes</label><textarea id="co-notes" style="min-height:60px;"></textarea></div>
+  </div>
+  <div class="modal-actions"><button class="btn" onclick="closeModal('modal-co')">Cancel</button><button class="btn btn-primary" onclick="saveChangeOrder()">Save</button></div>
+</div></div>
+
+<div id="modal-report" class="modal-overlay"><div class="modal">
+  <div class="modal-header"><div class="modal-title">New status report</div><button class="btn btn-sm" onclick="closeModal('modal-report')">✕</button></div>
+  <div class="form-grid">
+    <div class="form-group"><label>Report date *</label><input id="r-date" type="date"></div>
+    <div class="form-group"><label>Week #</label><input id="r-week" type="number" placeholder="1"></div>
+    <div class="form-group"><label>Schedule status</label><select id="r-sched"><option value="on_track">On track</option><option value="at_risk">At risk</option><option value="behind">Behind</option></select></div>
+    <div class="form-group"><label>Budget status</label><select id="r-budget-status"><option value="on_track">On track</option><option value="at_risk">At risk</option><option value="over">Over</option></select></div>
+    <div class="form-group full"><label>Summary</label><textarea id="r-summary"></textarea></div>
+    <div class="form-group full"><label>Completed this week</label><textarea id="r-completed"></textarea></div>
+    <div class="form-group full"><label>Planned next week</label><textarea id="r-planned"></textarea></div>
+    <div class="form-group full"><label>Open issues</label><textarea id="r-issues"></textarea></div>
+  </div>
+  <div style="margin-bottom:16px;"><button id="r-autofill-btn" class="btn btn-sm" onclick="autoPopulateReport()" style="width:100%;justify-content:center;">Auto-fill from project data</button></div>
+  <div class="modal-actions"><button class="btn" onclick="closeModal('modal-report')">Cancel</button><button class="btn btn-primary" onclick="saveReport()">Save report</button></div>
+</div></div>
+
+<script>
+const ACCESS_CODE='lewis2026'; // change if you'd rather reuse the quote generator's code (lewis2026)
+function checkAuth(){
+  if(document.getElementById('auth-input').value===ACCESS_CODE){
+    document.getElementById('auth-screen').style.display='none';
+    document.getElementById('app').style.display='block';
+    loadDashboard();
+  }else{
+    document.getElementById('auth-error').textContent='Incorrect access code.';
+    document.getElementById('auth-input').value='';
+  }
+}
+
+// REPLACE THESE TWO VALUES with your new LCS Supabase project's URL and anon key
+const SB_URL='https://nxubacnwukzlzuevffdb.supabase.co';
+const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im54dWJhY253dWt6bHp1ZXZmZmRiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE4OTYyODcsImV4cCI6MjA5NzQ3MjI4N30.4cn0MV-eoB0OM3_CrI5pRMcn5iaDxflBZLi22iS0OIU';
+const sbH={'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json','Prefer':'return=representation'};
+
+let projects=[];
+let curBudget=null,curSched=null,curCO=null,curReport=null;
+let editBudgetId=null,editTaskId=null,editCOId=null,editReportId=null;
+const budgetCache={},taskCache={},coCache={},reportCache={};
+
+async function sb(method,table,body,query=''){
+  const res=await fetch(`${SB_URL}/rest/v1/${table}${query}`,{method,headers:sbH,body:body?JSON.stringify(body):undefined});
+  if(!res.ok)throw new Error(await res.text());
+  return method==='DELETE'?null:res.json();
+}
+
+function fmt$(n){return n!=null?'$'+Number(n).toLocaleString('en-US',{minimumFractionDigits:0,maximumFractionDigits:0}):'—';}
+function pct(a,b){return b>0?Math.round((a/b)*100):0;}
+
+function showError(msg){
+  const el=document.getElementById('error-banner');
+  el.textContent=msg;el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'),6000);
+}
+
+function badge(s){
+  const L={active:'Active',planning:'Planning',oversight:'Oversight',complete:'Complete',pending:'Pending',approved:'Approved',declined:'Declined',new:'New',accepted:'Accepted',on_hold:'On hold',reviewed:'Reviewed',not_started:'Not started',in_progress:'In progress',blocked:'Blocked',on_track:'On track',at_risk:'At risk',behind:'Behind',over:'Over',archived:'Archived'};
+  return`<span class="badge badge-${s}">${L[s]||s}</span>`;
+}
+
+function showPage(id,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(b=>b.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  if(btn)btn.classList.add('active');
+  ({dashboard:loadDashboard,projects:loadProjects})[id]?.();
+}
+
+function openModal(id){document.getElementById(id).classList.add('open');}
+function closeModal(id){document.getElementById(id).classList.remove('open');}
+
+function populateSelects(){
+  ['budget-project-select','schedule-project-select','co-project-select','report-project-select'].forEach(id=>{
+    const sel=document.getElementById(id),val=sel.value;
+    sel.innerHTML='<option value="">Select a project</option>'+projects.filter(p=>p.status!=='archived').map(p=>`<option value="${p.id}">${p.name}</option>`).join('');
+    if(val)sel.value=val;
+  });
+}
+
+async function loadDashboard(){
+  try{
+    projects=await sb('GET','projects',null,'?order=created_at.desc');
+    const active=projects.filter(p=>p.status==='active'||p.status==='on_hold');
+    const cos=await sb('GET','change_orders',null,'?status=eq.pending&select=id');
+    document.getElementById('m-active').textContent=active.length;
+    document.getElementById('m-budget').textContent=fmt$(active.reduce((s,p)=>s+(p.approved_budget||0),0));
+    document.getElementById('m-spent').textContent=fmt$(active.reduce((s,p)=>s+(p.actual_cost||0),0));
+    document.getElementById('m-co').textContent=cos.length;
+    const el=document.getElementById('dash-projects');
+    el.innerHTML=active.length===0?'<div class="empty-state">No active projects yet.</div>':
+      active.map(p=>{
+        const spent=p.actual_cost||0,budget=p.approved_budget||0,ratio=pct(spent,budget),over=spent>budget;
+        return`<div class="card">
+          <div class="card-header">
+            <div><div class="card-title">${p.name}</div><div class="card-meta">${p.client_name} · ${p.address||'No address'}</div></div>
+            <div style="display:flex;gap:6px;">${badge(p.status)}</div>
+          </div>
+          <div class="progress-wrap">
+            <div class="progress-row"><span>${fmt$(spent)} spent</span><span>${fmt$(budget)} approved</span></div>
+            <div class="progress-bar"><div class="progress-fill ${over?'over':''}" style="width:${Math.min(ratio,100)}%"></div></div>
+            <div style="font-size:0.75rem;color:#bbb;margin-top:5px;">${ratio}% of budget${over?' — <strong style="color:var(--danger)">over budget</strong>':''}</div>
+          </div>
+          ${p.start_date?`<div style="font-size:0.75rem;color:#bbb;margin-top:10px;">Started ${p.start_date}${p.target_end_date?' · Target '+p.target_end_date:''}</div>`:''}
+        </div>`;
+      }).join('');
+    populateSelects();
+  }catch(e){showError('Failed to load dashboard: '+e.message);}
+}
+
+let showArchived=false;
+let showDeclined=false;
+
+async function loadProjects(){
+  try{
+    projects=await sb('GET','projects',null,'?order=created_at.desc');
+    const el=document.getElementById('projects-list');
+    const visible=showArchived?projects:projects.filter(p=>p.status!=='archived');
+    const archived=projects.filter(p=>p.status==='archived');
+    const toggleLabel=showArchived?'Hide archived':'Show archived ('+archived.length+')';
+    el.innerHTML=(archived.length>0?`<div style="display:flex;justify-content:flex-end;margin-bottom:12px;"><button class="btn btn-sm" onclick="showArchived=!showArchived;loadProjects()">${toggleLabel}</button></div>`:'')
+      +(visible.length===0?'<div class="empty-state">No projects yet.</div>':
+      visible.map(p=>`<div class="card" style="${p.status==='archived'?'opacity:0.6;':''}">
+        <div class="card-header">
+          <div><div class="card-title">${p.name}</div><div class="card-meta">${p.client_name}${p.client_email?' · '+p.client_email:''}</div></div>
+          <div style="display:flex;gap:6px;">${badge(p.status)}</div>
+        </div>
+        <div class="two-col" style="margin-bottom:6px;">
+          <div class="two-col-label">Address</div><div class="two-col-val">${p.address||'—'}</div>
+          <div class="two-col-label">Approved budget</div><div class="two-col-val">${fmt$(p.approved_budget)}</div>
+          <div class="two-col-label">Actual cost</div><div class="two-col-val">${fmt$(p.actual_cost)}</div>
+          <div class="two-col-label">Start date</div><div class="two-col-val">${p.start_date||'—'}</div>
+          <div class="two-col-label">Target end</div><div class="two-col-val">${p.target_end_date||'—'}</div>
+        </div>
+        ${p.notes?`<div style="font-size:0.8rem;color:#999;border-top:1px solid #f5f5f5;padding-top:10px;margin-top:4px;">${p.notes}</div>`:''}
+        <div style="margin-top:12px;border-top:1px solid #f5f5f5;padding-top:12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          ${p.status!=='archived'?`<button class="btn btn-sm" style="color:#aaa;" onclick="archiveProject('${p.id}')">Archive</button>`:`<button class="btn btn-sm" onclick="unarchiveProject('${p.id}')">Unarchive</button>`}
+        </div>
+      </div>`).join(''));
+    populateSelects();
+  }catch(e){showError('Failed to load projects: '+e.message);}
+}
+
+async function archiveProject(id){
+  try{
+    const h={...sbH,'Prefer':'return=minimal'};
+    await fetch(`${SB_URL}/rest/v1/projects?id=eq.${id}`,{method:'PATCH',headers:h,body:JSON.stringify({status:'archived'})});
+    loadProjects();
+  }catch(e){showError('Failed to archive: '+e.message);}
+}
+
+async function unarchiveProject(id){
+  try{
+    const h={...sbH,'Prefer':'return=minimal'};
+    await fetch(`${SB_URL}/rest/v1/projects?id=eq.${id}`,{method:'PATCH',headers:h,body:JSON.stringify({status:'complete'})});
+    loadProjects();
+  }catch(e){showError('Failed to unarchive: '+e.message);}
+}
+
+async function saveProject(){
+  const body={name:document.getElementById('p-name').value,client_name:document.getElementById('p-client').value,client_email:document.getElementById('p-email').value,address:document.getElementById('p-address').value,status:document.getElementById('p-status').value,approved_budget:parseFloat(document.getElementById('p-budget').value)||null,start_date:document.getElementById('p-start').value||null,target_end_date:document.getElementById('p-end').value||null,notes:document.getElementById('p-notes').value};
+  if(!body.name||!body.client_name){showError('Project name and client name are required.');return;}
+  try{await sb('POST','projects',body);closeModal('modal-project');loadProjects();}catch(e){showError('Save failed: '+e.message);}
+}
+
+async function loadBudget(){
+  const pid=document.getElementById('budget-project-select').value;
+  if(!pid)return;
+  curBudget=pid;
+  const proj=projects.find(p=>p.id===pid);
+  try{
+    const items=await sb('GET','budget_items',null,`?project_id=eq.${pid}&order=category`);
+    const ta=items.reduce((s,i)=>s+(i.approved_amount||0),0),tact=items.reduce((s,i)=>s+(i.actual_amount||0),0),v=ta-tact;
+    document.getElementById('budget-content').innerHTML=`
+      <div class="metrics" style="margin-bottom:24px;">
+        <div class="metric-card"><div class="metric-label">Approved budget</div><div class="metric-value">${fmt$(proj?.approved_budget)}</div></div>
+        <div class="metric-card"><div class="metric-label">Line items total</div><div class="metric-value">${fmt$(ta)}</div></div>
+        <div class="metric-card"><div class="metric-label">Actual spent</div><div class="metric-value">${fmt$(tact)}</div></div>
+        <div class="metric-card"><div class="metric-label">Variance</div><div class="metric-value" style="color:${v>=0?'var(--success)':'var(--danger)'}">${fmt$(Math.abs(v))} ${v>=0?'↓':'↑'}</div><div class="metric-sub">${v>=0?'under budget':'over budget'}</div></div>
+      </div>
+      <div class="section-header"><div class="section-title">Line items</div><button class="btn btn-primary btn-sm" onclick="editBudgetId=null;document.getElementById('bi-category').value='';document.getElementById('bi-desc').value='';document.getElementById('bi-approved').value='';document.getElementById('bi-actual').value='';document.getElementById('bi-notes').value='';openModal('modal-budget-item')">+ Add item</button></div>
+      ${items.length===0?'<div class="empty-state">No line items yet.</div>':`
+      <div class="card" style="padding:0;overflow:hidden;"><div class="table-wrap"><table>
+        <thead><tr><th>Category</th><th>Description</th><th>Approved</th><th>Actual</th><th>Variance</th><th>Notes</th><th></th></tr></thead>
+        <tbody>${items.map(i=>{budgetCache[i.id]=i;const iv=(i.approved_amount||0)-(i.actual_amount||0);return`<tr><td style="font-weight:600;">${i.category}</td><td>${i.description||'—'}</td><td>${fmt$(i.approved_amount)}</td><td>${fmt$(i.actual_amount)}</td><td style="color:${iv>=0?'var(--success)':'var(--danger)'};font-weight:${iv<0?600:400}">${fmt$(Math.abs(iv))} ${iv>=0?'↓':'↑'}</td><td style="color:#bbb;">${i.notes||''}</td><td><button class="btn btn-sm" onclick="editBudgetItem('${i.id}')">Edit</button></td></tr>`;}).join('')}</tbody>
+      </table></div></div>`}`;
+  }catch(e){showError('Failed to load budget: '+e.message);}
+}
+
+function editBudgetItem(id){
+  const i=budgetCache[id];if(!i)return;
+  editBudgetId=id;
+  document.getElementById('bi-category').value=i.category||'';
+  document.getElementById('bi-desc').value=i.description||'';
+  document.getElementById('bi-approved').value=i.approved_amount||'';
+  document.getElementById('bi-actual').value=i.actual_amount||'';
+  document.getElementById('bi-notes').value=i.notes||'';
+  openModal('modal-budget-item');
+}
+async function saveBudgetItem(){
+  const body={project_id:curBudget,category:document.getElementById('bi-category').value,description:document.getElementById('bi-desc').value,approved_amount:parseFloat(document.getElementById('bi-approved').value)||0,actual_amount:parseFloat(document.getElementById('bi-actual').value)||0,notes:document.getElementById('bi-notes').value};
+  if(!body.category){showError('Category is required.');return;}
+  try{
+    if(editBudgetId){const h={...sbH,'Prefer':'return=minimal'};await fetch(`${SB_URL}/rest/v1/budget_items?id=eq.${editBudgetId}`,{method:'PATCH',headers:h,body:JSON.stringify(body)});editBudgetId=null;}
+    else{await sb('POST','budget_items',body);}
+    closeModal('modal-budget-item');loadBudget();
+  }catch(e){showError('Save failed: '+e.message);}
+}
+
+async function loadSchedule(){
+  const pid=document.getElementById('schedule-project-select').value;
+  if(!pid)return;
+  curSched=pid;
+  try{
+    const tasks=await sb('GET','tasks',null,`?project_id=eq.${pid}&order=sort_order,start_date`);
+    document.getElementById('schedule-content').innerHTML=`
+      <div class="section-header"><div class="section-title">Tasks</div><button class="btn btn-primary btn-sm" onclick="editTaskId=null;document.getElementById('t-title').value='';document.getElementById('t-start').value='';document.getElementById('t-end').value='';document.getElementById('t-notes').value='';openModal('modal-task')">+ Add task</button></div>
+      ${tasks.length===0?'<div class="empty-state">No tasks yet.</div>':`
+      <div class="card" style="padding:0;overflow:hidden;"><div class="table-wrap"><table>
+        <thead><tr><th>Task</th><th>Owner</th><th>Start</th><th>End</th><th>Status</th><th>Notes</th><th></th></tr></thead>
+        <tbody>${tasks.map(t=>{taskCache[t.id]=t;return`<tr><td style="font-weight:600;">${t.title}</td><td>${t.owner||'—'}</td><td>${t.start_date||'—'}</td><td>${t.end_date||'—'}</td><td>${badge(t.status)}</td><td style="color:#bbb;">${t.notes||''}</td><td><button class="btn btn-sm" onclick="editTask('${t.id}')">Edit</button></td></tr>`;}).join('')}</tbody>
+      </table></div></div>`}`;
+  }catch(e){showError('Failed to load schedule: '+e.message);}
+}
+
+function editTask(id){
+  const t=taskCache[id];if(!t)return;
+  editTaskId=id;
+  document.getElementById('t-title').value=t.title||'';
+  document.getElementById('t-owner').value=t.owner||'Rob';
+  document.getElementById('t-status').value=t.status||'not_started';
+  document.getElementById('t-start').value=t.start_date||'';
+  document.getElementById('t-end').value=t.end_date||'';
+  document.getElementById('t-notes').value=t.notes||'';
+  openModal('modal-task');
+}
+async function saveTask(){
+  const body={project_id:curSched,title:document.getElementById('t-title').value,owner:document.getElementById('t-owner').value,status:document.getElementById('t-status').value,start_date:document.getElementById('t-start').value||null,end_date:document.getElementById('t-end').value||null,notes:document.getElementById('t-notes').value};
+  if(!body.title){showError('Task title is required.');return;}
+  try{
+    if(editTaskId){const h={...sbH,'Prefer':'return=minimal'};await fetch(`${SB_URL}/rest/v1/tasks?id=eq.${editTaskId}`,{method:'PATCH',headers:h,body:JSON.stringify(body)});editTaskId=null;}
+    else{await sb('POST','tasks',body);}
+    closeModal('modal-task');loadSchedule();
+  }catch(e){showError('Save failed: '+e.message);}
+}
+
+async function loadChangeOrders(){
+  const pid=document.getElementById('co-project-select').value;
+  if(!pid)return;
+  curCO=pid;
+  try{
+    const cos=await sb('GET','change_orders',null,`?project_id=eq.${pid}&order=created_at.desc`);
+    const at=cos.filter(c=>c.status==='approved').reduce((s,c)=>s+(c.amount||0),0);
+    document.getElementById('co-content').innerHTML=`
+      <div class="metrics" style="margin-bottom:24px;">
+        <div class="metric-card"><div class="metric-label">Total COs</div><div class="metric-value">${cos.length}</div></div>
+        <div class="metric-card"><div class="metric-label">Pending</div><div class="metric-value">${cos.filter(c=>c.status==='pending').length}</div></div>
+        <div class="metric-card"><div class="metric-label">Approved total</div><div class="metric-value">${fmt$(at)}</div></div>
+      </div>
+      <div class="section-header"><div class="section-title">Change orders</div><button class="btn btn-primary btn-sm" onclick="editCOId=null;document.getElementById('co-desc').value='';document.getElementById('co-requestor').value='';document.getElementById('co-amount').value='';document.getElementById('co-date').value='';document.getElementById('co-notes').value='';openModal('modal-co')">+ Log CO</button></div>
+      ${cos.length===0?'<div class="empty-state">No change orders yet.</div>':`
+      <div class="card" style="padding:0;overflow:hidden;"><div class="table-wrap"><table>
+        <thead><tr><th>Description</th><th>Requested by</th><th>Amount</th><th>Status</th><th>Approved date</th><th>Notes</th><th></th></tr></thead>
+        <tbody>${cos.map(c=>{coCache[c.id]=c;return`<tr><td style="font-weight:600;">${c.description}</td><td>${c.requested_by||'—'}</td><td>${fmt$(c.amount)}</td><td>${badge(c.status)}</td><td>${c.approved_date||'—'}</td><td style="color:#bbb;">${c.notes||''}</td><td><button class="btn btn-sm" onclick="editCO('${c.id}')">Edit</button></td></tr>`;}).join('')}</tbody>
+      </table></div></div>`}`;
+  }catch(e){showError('Failed to load change orders: '+e.message);}
+}
+
+function editCO(id){
+  const c=coCache[id];if(!c)return;
+  editCOId=id;
+  document.getElementById('co-desc').value=c.description||'';
+  document.getElementById('co-requestor').value=c.requested_by||'';
+  document.getElementById('co-amount').value=c.amount||'';
+  document.getElementById('co-status').value=c.status||'pending';
+  document.getElementById('co-date').value=c.approved_date||'';
+  document.getElementById('co-notes').value=c.notes||'';
+  openModal('modal-co');
+}
+async function saveChangeOrder(){
+  const body={project_id:curCO,description:document.getElementById('co-desc').value,requested_by:document.getElementById('co-requestor').value,amount:parseFloat(document.getElementById('co-amount').value)||0,status:document.getElementById('co-status').value,approved_date:document.getElementById('co-date').value||null,notes:document.getElementById('co-notes').value};
+  if(!body.description){showError('Description is required.');return;}
+  try{
+    if(editCOId){const h={...sbH,'Prefer':'return=minimal'};await fetch(`${SB_URL}/rest/v1/change_orders?id=eq.${editCOId}`,{method:'PATCH',headers:h,body:JSON.stringify(body)});editCOId=null;}
+    else{await sb('POST','change_orders',body);}
+    closeModal('modal-co');loadChangeOrders();
+  }catch(e){showError('Save failed: '+e.message);}
+}
+
+async function loadReports(){
+  const pid=document.getElementById('report-project-select').value;
+  if(!pid)return;
+  curReport=pid;
+  try{
+    const reports=await sb('GET','status_reports',null,`?project_id=eq.${pid}&order=report_date.desc`);
+    reports.forEach(r=>reportCache[r.id]=r);
+    document.getElementById('reports-content').innerHTML=`
+      <div class="section-header"><div class="section-title">Reports</div><button class="btn btn-primary btn-sm" onclick="editReportId=null;document.getElementById('r-date').value='';document.getElementById('r-week').value='';document.getElementById('r-summary').value='';document.getElementById('r-completed').value='';document.getElementById('r-planned').value='';document.getElementById('r-issues').value='';openModal('modal-report')">+ New report</button></div>
+      ${reports.length===0?'<div class="empty-state">No reports yet.</div>':reports.map(r=>`
+      <div class="card report-card">
+        <div class="card-header">
+          <div><div class="card-title">Week ${r.week_number||'—'} &nbsp;·&nbsp; ${r.report_date}</div></div>
+          <div style="display:flex;gap:6px;">${badge(r.schedule_status)} ${badge(r.budget_status)}<button class="btn btn-sm" onclick="editReport('${r.id}')">Edit</button><button class="btn btn-sm btn-primary" onclick="downloadReportPDF('${r.id}')">↓ PDF</button></div>
+        </div>
+        ${r.summary?`<div class="report-section"><div class="report-section-label">Summary</div><div class="report-section-content">${r.summary}</div></div>`:''}
+        ${r.completed_this_week?`<div class="report-section"><div class="report-section-label">Completed this week</div><div class="report-section-content">${r.completed_this_week}</div></div>`:''}
+        ${r.planned_next_week?`<div class="report-section"><div class="report-section-label">Planned next week</div><div class="report-section-content">${r.planned_next_week}</div></div>`:''}
+        ${r.open_issues?`<div class="report-section"><div class="report-section-label">Open issues</div><div class="report-section-content" style="color:var(--warning);">${r.open_issues}</div></div>`:''}
+      </div>`).join('')}`;
+  }catch(e){showError('Failed to load reports: '+e.message);}
+}
+
+function editReport(id){
+  const r=reportCache[id];if(!r)return;
+  editReportId=id;
+  document.getElementById('r-date').value=r.report_date||'';
+  document.getElementById('r-week').value=r.week_number||'';
+  document.getElementById('r-sched').value=r.schedule_status||'on_track';
+  document.getElementById('r-budget-status').value=r.budget_status||'on_track';
+  document.getElementById('r-summary').value=r.summary||'';
+  document.getElementById('r-completed').value=r.completed_this_week||'';
+  document.getElementById('r-planned').value=r.planned_next_week||'';
+  document.getElementById('r-issues').value=r.open_issues||'';
+  openModal('modal-report');
+}
+
+async function autoPopulateReport(){
+  if(!curReport){return;}
+  const btn=document.getElementById('r-autofill-btn');
+  btn.textContent='Loading...';btn.disabled=true;
+  try{
+    const[tasks,cos,proj,items]=await Promise.all([
+      sb('GET','tasks',null,`?project_id=eq.${curReport}&order=sort_order,start_date`),
+      sb('GET','change_orders',null,`?project_id=eq.${curReport}&status=eq.pending`),
+      sb('GET','projects',null,`?id=eq.${curReport}`),
+      sb('GET','budget_items',null,`?project_id=eq.${curReport}`)
+    ]);
+    const p=proj[0]||{};
+    const completedTasks=tasks.filter(t=>t.status==='complete');
+    const blockedTasks=tasks.filter(t=>t.status==='blocked');
+    const totalApproved=items.reduce((s,i)=>s+(i.approved_amount||0),0);
+    const totalActual=items.reduce((s,i)=>s+(i.actual_amount||0),0);
+    const budgetPct=totalApproved>0?Math.round((totalActual/totalApproved)*100):0;
+
+    // Completed tasks
+    if(completedTasks.length>0){
+      document.getElementById('r-completed').value=completedTasks.map(t=>t.title).join('\n');
+    }
+
+    // Open issues — blocked tasks + pending COs
+    const issues=[];
+    if(blockedTasks.length>0) issues.push(...blockedTasks.map(t=>`BLOCKED: ${t.title}${t.notes?' — '+t.notes:''}`));
+    if(cos.length>0) issues.push(...cos.map(c=>`PENDING CO: ${c.description} (${fmt$(c.amount)})`));
+    if(issues.length>0) document.getElementById('r-issues').value=issues.join('\n');
+
+    // Budget status
+    if(budgetPct>100) document.getElementById('r-budget-status').value='over';
+    else if(budgetPct>85) document.getElementById('r-budget-status').value='at_risk';
+    else document.getElementById('r-budget-status').value='on_track';
+
+    // Schedule status
+    const totalTasks=tasks.length;
+    const doneTasks=completedTasks.length;
+    const schedPct=totalTasks>0?Math.round((doneTasks/totalTasks)*100):0;
+    if(blockedTasks.length>0) document.getElementById('r-sched').value='at_risk';
+    else if(schedPct<30&&totalTasks>3) document.getElementById('r-sched').value='at_risk';
+    else document.getElementById('r-sched').value='on_track';
+
+    // Auto-generate summary from project data
+    btn.textContent='Generating summary...';
+    const budgetLine=totalApproved>0?`Budget is ${budgetPct}% utilized (${fmt$(totalActual)} of ${fmt$(totalApproved)} approved).`:'No budget data available.';
+    const schedLine=totalTasks>0?`${doneTasks} of ${totalTasks} tasks complete (${schedPct}%).`:'No tasks logged.';
+    const issuesLine=blockedTasks.length>0||cos.length>0?` ${blockedTasks.length} blocked task(s) and ${cos.length} pending change order(s) require attention.`:'No open issues.';
+    const autoSummary=`${p.name||'Project'} is active. ${schedLine} ${budgetLine}${issuesLine}`;
+    document.getElementById('r-summary').value=autoSummary;
+
+  }catch(e){showError('Auto-fill failed: '+e.message);}
+  finally{btn.textContent='Auto-fill from project data';btn.disabled=false;}
+}
+
+async function saveReport(){
+  const body={project_id:curReport,report_date:document.getElementById('r-date').value,week_number:parseInt(document.getElementById('r-week').value)||null,schedule_status:document.getElementById('r-sched').value,budget_status:document.getElementById('r-budget-status').value,summary:document.getElementById('r-summary').value,completed_this_week:document.getElementById('r-completed').value,planned_next_week:document.getElementById('r-planned').value,open_issues:document.getElementById('r-issues').value};
+  if(!body.report_date){showError('Report date is required.');return;}
+  try{
+    if(editReportId){const h={...sbH,'Prefer':'return=minimal'};await fetch(`${SB_URL}/rest/v1/status_reports?id=eq.${editReportId}`,{method:'PATCH',headers:h,body:JSON.stringify(body)});editReportId=null;}
+    else{await sb('POST','status_reports',body);}
+    closeModal('modal-report');loadReports();
+  }catch(e){showError('Save failed: '+e.message);}
+}
+
+async function downloadReportPDF(id){
+  const r=reportCache[id];if(!r)return;
+  const proj=projects.find(p=>p.id===r.project_id)||{};
+  const{jsPDF}=window.jspdf;
+  const doc=new jsPDF({orientation:'portrait',unit:'mm',format:'letter'});
+  const W=215.9,margin=20,contentW=W-margin*2;
+  let y=margin;
+
+  // ── Header bar ────────────────────────────────────────────────────────
+  doc.setFillColor(42,42,42);
+  doc.rect(0,0,W,36,'F');
+
+  doc.setFont('helvetica','bold');
+  doc.setFontSize(15);
+  doc.setTextColor(227,0,0);
+  doc.text('LEWIS CONSTRUCTION AND DESIGN',margin,16);
+  doc.setFont('helvetica','normal');
+  doc.setFontSize(8);
+  doc.setTextColor(180,180,180);
+  doc.text('Project Status Report',margin,23);
+
+  y=46;
+
+  // ── Project info ──────────────────────────────────────────────────────
+  doc.setFont('helvetica','bold');
+  doc.setFontSize(14);
+  doc.setTextColor(42,42,42);
+  doc.text(proj.name||'Project Status Report',margin,y);
+  y+=6;
+
+  doc.setFont('helvetica','normal');
+  doc.setFontSize(9);
+  doc.setTextColor(100,100,100);
+  const metaParts=[];
+  if(proj.client_name) metaParts.push(proj.client_name);
+  if(proj.address) metaParts.push(proj.address);
+  if(metaParts.length) {doc.text(metaParts.join('  ·  '),margin,y);y+=5;}
+
+  // ── Rule ──────────────────────────────────────────────────────────────
+  doc.setDrawColor(227,0,0);
+  doc.setLineWidth(0.5);
+  doc.line(margin,y,W-margin,y);
+  y+=6;
+
+  // ── Report meta row ───────────────────────────────────────────────────
+  doc.setFontSize(8.5);
+  doc.setTextColor(120,120,120);
+  const weekLabel=r.week_number?`Week ${r.week_number}  ·  `:'';
+  const schedLabel=r.schedule_status?.replace('_',' ')||'—';
+  const budgLabel=r.budget_status?.replace('_',' ')||'—';
+  doc.text(`${weekLabel}${r.report_date||''}     Schedule: ${schedLabel}     Budget: ${budgLabel}`,margin,y);
+  y+=8;
+
+  // ── Section helper ────────────────────────────────────────────────────
+  function section(title, body){
+    if(!body||!body.trim()) return;
+    if(y>240){doc.addPage();y=margin;}
+    doc.setFont('helvetica','bold');
+    doc.setFontSize(8);
+    doc.setTextColor(180,30,30);
+    doc.text(title.toUpperCase(),margin,y);
+    y+=4;
+    doc.setDrawColor(240,180,180);
+    doc.setLineWidth(0.3);
+    doc.line(margin,y,W-margin,y);
+    y+=4;
+    doc.setFont('helvetica','normal');
+    doc.setFontSize(9.5);
+    doc.setTextColor(40,40,40);
+    const lines=doc.splitTextToSize(body,contentW);
+    lines.forEach(line=>{
+      if(y>252){doc.addPage();y=margin;}
+      doc.text(line,margin,y);
+      y+=5;
+    });
+    y+=4;
+  }
+
+  section('Summary',r.summary);
+  section('Completed This Week',r.completed_this_week);
+  section('Planned Next Week',r.planned_next_week);
+  section('Open Issues',r.open_issues);
+
+  // ── Footer ────────────────────────────────────────────────────────────
+  const pageCount=doc.getNumberOfPages();
+  for(let i=1;i<=pageCount;i++){
+    doc.setPage(i);
+    doc.setDrawColor(200,200,200);
+    doc.setLineWidth(0.3);
+    doc.line(margin,272,W-margin,272);
+    doc.setFont('helvetica','normal');
+    doc.setFontSize(7.5);
+    doc.setTextColor(160,160,160);
+    doc.text('Lewis Construction and Design  ·  info@lewisconstruction.design  ·  301.452.2823',margin,277);
+    doc.text(`Page ${i} of ${pageCount}`,W-margin,277,{align:'right'});
+  }
+
+  const filename=`${(proj.name||'status-report').replace(/[^a-z0-9]/gi,'-').toLowerCase()}-week${r.week_number||r.report_date||'report'}.pdf`;
+  doc.save(filename);
+}
+
+function showSuccess(msg){
+  const el=document.getElementById('error-banner');
+  el.textContent=msg;
+  el.style.cssText='display:block;background:var(--success-bg);border:1px solid rgba(45,106,79,0.3);color:var(--success);font-size:0.82rem;padding:10px 16px;border-radius:6px;margin-bottom:20px;';
+  setTimeout(()=>{el.style.cssText='';el.classList.remove('show');},4000);
+}
+</script>
+
+</body>
+</html>
