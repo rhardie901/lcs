@@ -1,980 +1,958 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lewis Construction and Design · General Contractor DMV · We Build Your Dreams</title>
-    <meta name="description" content="Lewis Construction and Design is a licensed general contractor serving DC, Maryland, and Virginia. Full renovations, new construction, additions, kitchens, baths, roofing, decks, and commercial work. Design-build contractor with 30+ years of DMV experience. License #92880. Call 301.452.2823.">
-    <meta name="keywords" content="general contractor Maryland, general contractor DMV, home renovation PG County, design build contractor Maryland, kitchen remodel Maryland, bathroom remodel DMV, room addition Maryland, roofing contractor Maryland, deck builder DMV, commercial contractor Maryland">
-    <meta name="robots" content="index, follow">
-    <meta property="og:title" content="Lewis Construction and Design · We Build Your Dreams">
-    <meta property="og:description" content="Licensed general contractor serving DC, Maryland, and Virginia. Design-build services — we design it and build it. 30+ years DMV experience. License #92880.">
-    <meta property="og:url" content="https://lewisconstruction.design/">
-    <meta property="og:type" content="website">
-    <link rel="canonical" href="https://lewisconstruction.design/">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lewis Construction Services, Inc. | Commercial &amp; Residential General Contracting</title>
+<meta name="description" content="Lewis Construction Services, Inc. — licensed general contractor serving DC, Maryland, and Virginia. Full renovations, additions, roofing, decks, kitchens, baths, and commercial work. MD MHIC #92880.">
 
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      "@id": "https://lewisconstruction.design",
-      "name": "Lewis Construction and Design",
-      "description": "Licensed general contractor serving DC, Maryland, and Virginia. Full renovations, new construction, additions, kitchens, baths, roofing, decks, and commercial work. Design-build contractor with 30+ years of DMV experience.",
-      "url": "https://lewisconstruction.design",
-      "telephone": "+13014522823",
-      "email": "info@lewisconstruction.design",
-      "logo": "https://lewisconstruction.design/images/logo.png",
-      "image": "https://lewisconstruction.design/images/logo.png",
-      "priceRange": "$$",
-      "currenciesAccepted": "USD",
-      "paymentAccepted": "Cash, Check, Credit Card",
-      "areaServed": [
-        {"@type": "State", "name": "Maryland"},
-        {"@type": "State", "name": "Virginia"},
-        {"@type": "City", "name": "Washington DC"}
-      ],
-      "address": {
-        "@type": "PostalAddress",
-        "addressRegion": "MD",
-        "addressCountry": "US"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": "38.8404",
-        "longitude": "-76.8522"
-      },
-      "sameAs": [
-        "https://lewisconstruction.design"
-      ],
-      "hasOfferCatalog": {
-        "@type": "OfferCatalog",
-        "name": "Construction Services",
-        "itemListElement": [
-          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "New Construction"}},
-          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Full Renovations"}},
-          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Room Additions"}},
-          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Kitchen Remodel"}},
-          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Bathroom Remodel"}},
-          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Roofing"}},
-          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Deck and Outdoor Structures"}},
-          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Commercial Electrical"}},
-          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Commercial Plumbing"}},
-          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Design-Build Services"}}
-        ]
-      },
-      "additionalType": "https://schema.org/HomeAndConstructionBusiness",
-      "slogan": "We Build Your Dreams",
-      "foundingDate": "1990",
-      "license": "MD License #92880"
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  /* ============================================================
+     TOKENS
+     ============================================================ */
+  :root {
+    --navy:      #0B2545;
+    --navy-ink:  #081B33;
+    --gray:      #D0D3D4;
+    --gray-tint: #F4F5F6;
+    --gold:      #C5A059;
+    --gold-dim:  #9c7f45;
+    --white:     #FFFFFF;
+    --ink:       #14181F;
+    --ink-soft:  #4A525E;
+
+    --font-display: 'Inter', -apple-system, sans-serif;
+    --font-mono:    'IBM Plex Mono', 'Courier New', monospace;
+
+    --container: 1240px;
+    --edge: clamp(20px, 5vw, 64px);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+  }
+
+  body {
+    font-family: var(--font-display);
+    color: var(--ink);
+    background: var(--white);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+  :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+  .wrap {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding-left: var(--edge);
+    padding-right: var(--edge);
+  }
+
+  /* Dimension-line signature element */
+  .dim-line {
+    position: relative;
+    height: 1px;
+    background: var(--navy);
+    opacity: 0.15;
+  }
+  .dim-line::before, .dim-line::after {
+    content: '';
+    position: absolute;
+    top: -3px;
+    width: 1px; height: 7px;
+    background: var(--gold);
+    opacity: 1;
+  }
+  .dim-line::before { left: 0; }
+  .dim-line::after  { right: 0; }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .eyebrow::before {
+    content: '';
+    width: 22px; height: 1px;
+    background: var(--gold);
+    display: inline-block;
+    flex-shrink: 0;
+  }
+
+  /* ============================================================
+     HEADER
+     ============================================================ */
+  header {
+    position: sticky;
+    top: 0; z-index: 100;
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: saturate(180%) blur(8px);
+    border-bottom: 1px solid var(--gray);
+  }
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 14px;
+    padding-bottom: 14px;
+  }
+
+  /* --- Logo lockup ---
+     SVG LC monogram + LEWIS (800) / CONSTRUCTION SERVICES INC (300, tracked) */
+  .logo { display: flex; align-items: center; gap: 12px; }
+
+  .logo-icon {
+    width: 44px; height: 44px;
+    flex-shrink: 0;
+    object-fit: contain;
+  }
+
+  .logo-text { line-height: 1; }
+  .logo-text .lewis {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.42rem;
+    letter-spacing: -0.01em;
+    color: var(--navy);
+    display: block;
+    line-height: 1;
+  }
+  .logo-text .sub {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: 0.54rem;
+    letter-spacing: 0.24em;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    display: block;
+    margin-top: 4px;
+    /* Track wide to span LEWIS width */
+    white-space: nowrap;
+  }
+  .logo-text .sub .inc { color: #A0A8B0; }
+
+  nav.primary-nav { display: flex; align-items: center; gap: 36px; }
+  nav.primary-nav a {
+    font-family: var(--font-display);
+    font-size: 0.86rem;
+    font-weight: 500;
+    color: var(--navy);
+    position: relative;
+    padding: 6px 0;
+  }
+  nav.primary-nav a::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: 0;
+    width: 0; height: 2px;
+    background: var(--gold);
+    transition: width 0.2s ease;
+  }
+  nav.primary-nav a:hover::after,
+  nav.primary-nav a:focus-visible::after { width: 100%; }
+
+  .nav-contact {
+    font-family: var(--font-display);
+    font-size: 0.84rem;
+    font-weight: 500;
+    color: var(--navy);
+    border: 1px solid var(--navy);
+    padding: 9px 20px;
+    transition: background 0.2s, color 0.2s;
+  }
+  .nav-contact:hover, .nav-contact:focus-visible {
+    background: var(--navy);
+    color: var(--white);
+  }
+
+  .nav-toggle {
+    display: none;
+    background: none;
+    border: 1px solid var(--navy);
+    width: 44px; height: 44px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    cursor: pointer;
+  }
+  .nav-toggle span { width: 20px; height: 2px; background: var(--navy); display: block; }
+
+  @media (max-width: 900px) {
+    nav.primary-nav {
+      position: fixed;
+      inset: 73px 0 0 0;
+      background: var(--white);
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 36px var(--edge);
+      gap: 24px;
+      transform: translateX(100%);
+      transition: transform 0.25s ease;
+      border-top: 1px solid var(--gray);
+      z-index: 99;
     }
-    </script>
+    nav.primary-nav.open { transform: translateX(0); }
+    nav.primary-nav a { font-size: 1.1rem; }
+    .nav-toggle { display: flex; }
+  }
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --red: #E30000;
-            --red-dark: #B50000;
-            --charcoal: #2A2A2A;
-            --off-white: #F7F5F2;
-            --mid-gray: #6B6B6B;
-            --light-gray: #E8E6E3;
-            --white: #FFFFFF;
-        }
+  /* ============================================================
+     HERO
+     ============================================================ */
+  .hero { padding: clamp(48px, 8vw, 100px) 0 clamp(56px, 8vw, 108px); }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: clamp(36px, 5vw, 72px);
+    align-items: center;
+  }
+  .hero-copy h1 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(2.1rem, 4vw, 3.4rem);
+    line-height: 1.07;
+    letter-spacing: -0.015em;
+    color: var(--navy);
+  }
+  .hero-copy p {
+    margin-top: 24px;
+    max-width: 46ch;
+    color: var(--ink-soft);
+    font-size: 1.02rem;
+    font-weight: 400;
+    line-height: 1.65;
+  }
+  .hero-actions {
+    margin-top: 36px;
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .btn {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 15px 28px;
+    display: inline-block;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+    letter-spacing: 0.01em;
+  }
+  .btn-primary { background: var(--navy); color: var(--white); }
+  .btn-primary:hover, .btn-primary:focus-visible { background: var(--navy-ink); }
+  .btn-ghost { border-color: var(--navy); color: var(--navy); }
+  .btn-ghost:hover, .btn-ghost:focus-visible { background: var(--navy); color: var(--white); }
 
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
+  .credentials {
+    margin-top: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 28px;
+  }
+  .cred {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
+    color: var(--ink-soft);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .cred::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--gold);
+    display: inline-block;
+    flex-shrink: 0;
+  }
 
-        body {
-            font-family: 'Barlow', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--off-white);
-            color: var(--charcoal);
-            line-height: 1.6;
-        }
+  /* Hero photo with dimension-line corner marks */
+  .hero-photo { position: relative; padding: 18px; }
+  .hero-photo-frame {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+  }
+  .hero-photo-frame img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+  .corner {
+    position: absolute;
+    width: 22px; height: 22px;
+    border-color: var(--gold);
+    border-style: solid;
+    border-width: 0;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .corner.tl { top: 0; left: 0; border-top-width: 2px; border-left-width: 2px; }
+  .corner.br { bottom: 0; right: 0; border-bottom-width: 2px; border-right-width: 2px; }
 
-        /* NAV */
-        nav {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            z-index: 100;
-            background: var(--charcoal);
-            padding: 0 60px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 80px;
-            transition: box-shadow 0.3s;
-        }
-        nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.5); }
+  @media (max-width: 760px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .hero-photo { margin-top: 28px; padding: 12px; }
+  }
 
-        .nav-logo { height: 60px; width: auto; display: block; }
+  /* ============================================================
+     SECTION SCAFFOLDING
+     ============================================================ */
+  section { padding: clamp(56px, 8vw, 108px) 0; }
+  .section-head { max-width: 660px; margin-bottom: 52px; }
+  .section-head h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.7rem, 2.6vw, 2.3rem);
+    color: var(--navy);
+    letter-spacing: -0.01em;
+  }
+  .section-head p { margin-top: 14px; color: var(--ink-soft); font-weight: 400; }
 
-        .nav-links {
-            display: flex;
-            gap: 36px;
-            list-style: none;
-            align-items: center;
-        }
-        .nav-links a {
-            color: var(--light-gray);
-            text-decoration: none;
-            font-size: 0.82rem;
-            font-weight: 500;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            transition: color 0.2s;
-        }
-        .nav-links a:hover { color: var(--red); }
+  .bg-tint { background: var(--gray-tint); }
+  .bg-navy { background: var(--navy); color: var(--white); }
+  .bg-navy .section-head h2 { color: var(--white); }
+  .bg-navy .section-head p { color: rgba(255,255,255,0.65); }
 
-        .nav-cta {
-            background: var(--red) !important;
-            color: var(--white) !important;
-            padding: 10px 24px !important;
-            font-weight: 600 !important;
-        }
-        .nav-cta:hover { background: var(--red-dark) !important; color: var(--white) !important; }
+  /* ============================================================
+     CAPABILITIES
+     ============================================================ */
+  .capabilities-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--gray);
+    border: 1px solid var(--gray);
+  }
+  .capability-card {
+    background: var(--white);
+    padding: clamp(28px, 4vw, 48px);
+  }
+  .capability-card h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: var(--navy);
+  }
+  .capability-card p {
+    margin-top: 16px;
+    color: var(--ink-soft);
+    font-size: 0.97rem;
+    font-weight: 400;
+    line-height: 1.65;
+  }
+  .capability-card a.card-link {
+    margin-top: 24px;
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.07em;
+    color: var(--navy);
+    border-bottom: 1px solid var(--gold);
+    padding-bottom: 3px;
+    text-transform: uppercase;
+  }
+  @media (max-width: 640px) {
+    .capabilities-grid { grid-template-columns: 1fr; }
+  }
 
-        /* HERO */
-        #hero {
-            background: var(--charcoal);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding: 120px 80px 80px;
-            position: relative;
-            overflow: hidden;
-        }
+  /* ============================================================
+     PROCESS — headings only, no step counters
+     ============================================================ */
+  .process-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0 36px;
+  }
+  .process-step {
+    padding-top: 24px;
+    border-top: 2px solid var(--gray);
+  }
+  .process-step h4 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--navy);
+    margin-bottom: 10px;
+  }
+  .process-step p {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    font-weight: 400;
+    line-height: 1.6;
+  }
+  @media (max-width: 860px) {
+    .process-list { grid-template-columns: 1fr 1fr; gap: 32px 28px; }
+  }
+  @media (max-width: 520px) {
+    .process-list { grid-template-columns: 1fr; }
+  }
 
-        #hero::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse at 80% 50%, rgba(227,0,0,0.08) 0%, transparent 60%);
-            pointer-events: none;
-        }
+  /* ============================================================
+     PROJECT WORK GRID
+     ============================================================ */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  .project-card {}
+  .project-photo {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    position: relative;
+    background: var(--gray-tint);
+  }
+  .project-photo img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+  .project-card:hover .project-photo img { transform: scale(1.04); }
+  .project-tag {
+    position: absolute;
+    top: 14px; left: 14px;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: var(--navy);
+    color: var(--white);
+    padding: 5px 10px;
+    z-index: 1;
+  }
+  .project-card h4 {
+    margin-top: 14px;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.97rem;
+    color: var(--navy);
+  }
+  .project-card .loc {
+    margin-top: 4px;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--ink-soft);
+  }
+  @media (max-width: 900px) { .projects-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 540px) { .projects-grid { grid-template-columns: 1fr; } }
 
-        .hero-inner {
-            max-width: 1200px;
-            width: 100%;
-        }
+  /* ============================================================
+     BEFORE / AFTER
+     ============================================================ */
+  .before-after-section { margin-top: 72px; }
+  .ba-group-label {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
+    margin-bottom: 14px;
+  }
+  .before-after-group { margin-bottom: 48px; }
+  .before-after-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .ba-item { position: relative; }
+  .ba-item img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+  }
+  .ba-badge {
+    position: absolute;
+    bottom: 0; left: 0;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 7px 14px;
+    font-weight: 500;
+  }
+  .ba-item.before .ba-badge { background: var(--navy); color: var(--white); }
+  .ba-item.after  .ba-badge { background: var(--gold); color: var(--navy); }
+  .ba-caption {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--ink-soft);
+    margin-top: 8px;
+    letter-spacing: 0.04em;
+  }
+  @media (max-width: 540px) {
+    .before-after-pair { grid-template-columns: 1fr; }
+  }
 
-        .hero-eyebrow {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 1rem;
-            font-weight: 700;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            color: rgba(232, 230, 227, 0.9);
-            margin-bottom: 24px;
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-        .hero-eyebrow::before {
-            content: '';
-            display: block;
-            width: 32px;
-            height: 2px;
-            background: var(--red);
-        }
+  /* ============================================================
+     ABOUT — two-column text layout, no photo
+     ============================================================ */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: clamp(40px, 6vw, 96px);
+    align-items: start;
+  }
+  .about-left h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.7rem, 2.6vw, 2.2rem);
+    color: var(--navy);
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+  }
+  .about-right p {
+    color: var(--ink-soft);
+    font-weight: 400;
+    line-height: 1.7;
+  }
+  .about-right p + p { margin-top: 16px; }
+  .about-stats {
+    margin-top: 36px;
+    display: flex;
+    gap: 36px;
+    flex-wrap: wrap;
+    padding-top: 28px;
+    border-top: 1px solid var(--gray);
+  }
+  .stat-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.07em;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+  }
+  .stat-value {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--navy);
+    margin-top: 5px;
+  }
+  @media (max-width: 720px) {
+    .about-grid { grid-template-columns: 1fr; gap: 28px; }
+  }
 
-        .hero-headline {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-weight: 800;
-            font-size: clamp(3.5rem, 7vw, 6.5rem);
-            line-height: 0.95;
-            color: var(--white);
-            text-transform: uppercase;
-            letter-spacing: -0.01em;
-            margin-bottom: 32px;
-            max-width: 820px;
-        }
-        .hero-headline span { color: var(--red); }
+  /* ============================================================
+     CTA
+     ============================================================ */
+  .cta-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 32px;
+  }
+  .cta-inner h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.5rem, 2.4vw, 2rem);
+    color: var(--white);
+    max-width: 22ch;
+  }
+  .cta-contact {}
+  .cta-contact a {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    color: var(--white);
+    border-bottom: 1px solid var(--gold);
+    padding-bottom: 3px;
+    margin-bottom: 12px;
+    width: fit-content;
+  }
+  .cta-contact a:last-child { margin-bottom: 0; }
 
-        .hero-sub {
-            font-size: 1.1rem;
-            color: var(--light-gray);
-            max-width: 520px;
-            margin-bottom: 52px;
-            line-height: 1.75;
-            opacity: 0.85;
-        }
-
-        .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
-
-        .btn-primary {
-            display: inline-block;
-            background: var(--red);
-            color: var(--white);
-            padding: 16px 40px;
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 1rem;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            text-decoration: none;
-            transition: background 0.2s, transform 0.2s;
-        }
-        .btn-primary:hover { background: var(--red-dark); transform: translateY(-2px); }
-
-        .btn-secondary {
-            display: inline-block;
-            border: 2px solid rgba(255,255,255,0.25);
-            color: var(--light-gray);
-            padding: 16px 40px;
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 1rem;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            text-decoration: none;
-            transition: border-color 0.2s, color 0.2s;
-        }
-        .btn-secondary:hover { border-color: var(--red); color: var(--white); }
-
-        .hero-stats {
-            display: flex;
-            gap: 60px;
-            margin-top: 72px;
-            padding-top: 40px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-        }
-        .stat-num {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 2.8rem;
-            font-weight: 800;
-            color: var(--white);
-            line-height: 1;
-        }
-        .stat-label {
-            font-size: 0.8rem;
-            color: var(--mid-gray);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-top: 4px;
-        }
-
-        /* SECTION COMMON */
-        section { padding: 100px 80px; }
-
-        .section-eyebrow {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 0.82rem;
-            font-weight: 700;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: var(--red);
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .section-eyebrow::before {
-            content: '';
-            display: block;
-            width: 4px;
-            height: 18px;
-            background: var(--red);
-            flex-shrink: 0;
-        }
-
-        .section-title {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-weight: 800;
-            font-size: clamp(2.2rem, 4vw, 3.4rem);
-            line-height: 1.05;
-            text-transform: uppercase;
-            letter-spacing: -0.01em;
-            margin-bottom: 20px;
-        }
-
-        /* SERVICES */
-        #services { background: var(--white); }
-        #services .section-title { color: var(--charcoal); }
-
-        .services-intro {
-            font-size: 1.05rem;
-            color: var(--mid-gray);
-            max-width: 580px;
-            margin-bottom: 60px;
-            line-height: 1.75;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2px;
-            background: var(--light-gray);
-        }
-
-        .service-card {
-            background: var(--white);
-            padding: 44px 36px;
-            border-top: 3px solid transparent;
-            transition: border-color 0.25s, background 0.25s;
-        }
-        .service-card:hover {
-            border-top-color: var(--red);
-            background: #FFF8F8;
-        }
-
-        .service-icon {
-            font-size: 2rem;
-            margin-bottom: 18px;
-            display: block;
-        }
-
-        .service-name {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 1.4rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.02em;
-            color: var(--charcoal);
-            margin-bottom: 12px;
-        }
-
-        .service-desc {
-            font-size: 0.92rem;
-            color: var(--mid-gray);
-            line-height: 1.7;
-        }
-
-        /* WHY US */
-        #why { background: var(--charcoal); }
-        #why .section-title { color: var(--white); }
-
-        .why-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
-            align-items: start;
-            margin-top: 56px;
-        }
-
-        .why-text p {
-            font-size: 1.05rem;
-            color: var(--light-gray);
-            line-height: 1.8;
-            margin-bottom: 20px;
-            max-width: 520px;
-            opacity: 0.85;
-        }
-
-        .why-list { list-style: none; }
-        .why-list li {
-            display: flex;
-            gap: 16px;
-            align-items: flex-start;
-            padding: 18px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.07);
-            font-size: 0.95rem;
-            color: var(--light-gray);
-            line-height: 1.55;
-        }
-        .why-list li::before {
-            content: '✓';
-            color: var(--red);
-            font-weight: 700;
-            font-size: 1rem;
-            flex-shrink: 0;
-            margin-top: 1px;
-        }
-
-        /* COMMERCIAL */
-        #commercial {
-            background: var(--off-white);
-            border-left: 0;
-        }
-        #commercial .section-title { color: var(--charcoal); }
-
-        .commercial-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            margin-top: 48px;
-        }
-
-        .commercial-block {
-            padding: 36px;
-            background: var(--white);
-            border-left: 4px solid var(--red);
-        }
-
-        .commercial-block h3 {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 1.3rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: var(--charcoal);
-            margin-bottom: 12px;
-        }
-        .commercial-block p {
-            font-size: 0.92rem;
-            color: var(--mid-gray);
-            line-height: 1.7;
-        }
-
-        /* CONTACT */
-        #contact {
-            background: var(--charcoal);
-            text-align: center;
-            padding: 120px 80px;
-            position: relative;
-        }
-
-        #contact::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse at 50% 80%, rgba(227,0,0,0.08) 0%, transparent 60%);
-            pointer-events: none;
-        }
-
-        #contact .section-eyebrow { justify-content: center; }
-        #contact .section-eyebrow::before { display: none; }
-
-        .contact-title {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-weight: 800;
-            font-size: clamp(2.5rem, 5vw, 4.5rem);
-            text-transform: uppercase;
-            color: var(--white);
-            line-height: 1;
-            margin-bottom: 24px;
-        }
-        .contact-title span { color: var(--red); }
-
-        .contact-sub {
-            color: var(--light-gray);
-            font-size: 1rem;
-            max-width: 460px;
-            margin: 0 auto 48px;
-            opacity: 0.75;
-            line-height: 1.75;
-        }
-
-        .contact-info {
-            display: flex;
-            justify-content: center;
-            gap: 60px;
-            margin-top: 52px;
-            flex-wrap: wrap;
-        }
-
-        .contact-item a,
-        .contact-item span {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: var(--white);
-            text-decoration: none;
-            letter-spacing: 0.03em;
-            transition: color 0.2s;
-        }
-        .contact-item a:hover { color: var(--red); }
-        .contact-item-label {
-            font-size: 0.72rem;
-            color: var(--mid-gray);
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            margin-bottom: 6px;
-        }
-
-        /* FOOTER */
-        footer {
-            background: #1a1a1a;
-            padding: 32px 80px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .footer-logo { height: 40px; width: auto; opacity: 0.8; }
-
-        .footer-meta {
-            font-size: 0.76rem;
-            color: rgba(255,255,255,0.25);
-        }
-        .footer-meta a {
-            color: rgba(227,0,0,0.5);
-            text-decoration: none;
-        }
-
-        /* ANIMATIONS */
-        .fade-up {
-            opacity: 0;
-            transform: translateY(24px);
-            transition: opacity 0.65s ease, transform 0.65s ease;
-        }
-        .fade-up.visible { opacity: 1; transform: translateY(0); }
-
-        /* RESPONSIVE */
-        @media (max-width: 960px) {
-            nav { padding: 0 28px; }
-            .nav-links { display: none; }
-            section, #hero, #contact { padding: 80px 32px; }
-            footer { padding: 28px 32px; flex-direction: column; gap: 12px; text-align: center; }
-            .hero-stats { gap: 32px; flex-wrap: wrap; }
-            .services-grid { grid-template-columns: 1fr; }
-            .why-grid { grid-template-columns: 1fr; gap: 48px; }
-            .commercial-grid { grid-template-columns: 1fr; gap: 24px; }
-            .contact-info { gap: 32px; }
-        }
-    
-        /* WORK */
-        #work { background: var(--charcoal); }
-        #work .section-title { color: var(--white); }
-        #work .services-intro { color: rgba(230,230,230,0.7); }
-
-        .before-after {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 6px;
-            margin-top: 48px;
-            margin-bottom: 6px;
-        }
-        .ba-item { overflow: hidden; position: relative; }
-        .ba-item img {
-            width: 100%; height: 320px; object-fit: cover; display: block;
-            transition: transform 0.4s ease;
-        }
-        .ba-item:hover img { transform: scale(1.03); }
-        .ba-label {
-            position: absolute; bottom: 0; left: 0; right: 0;
-            background: linear-gradient(transparent, rgba(0,0,0,0.8));
-            color: white;
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 0.9rem; font-weight: 700;
-            letter-spacing: 0.14em; text-transform: uppercase;
-            padding: 36px 16px 14px;
-            display: flex; align-items: flex-end; justify-content: space-between;
-        }
-        .ba-tag {
-            background: var(--red);
-            font-size: 0.7rem;
-            padding: 3px 10px;
-            letter-spacing: 0.12em;
-        }
-        .work-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 6px;
-        }
-        .work-item { overflow: hidden; position: relative; }
-        .work-item img {
-            width: 100%; height: 240px; object-fit: cover; display: block;
-            transition: transform 0.4s ease;
-        }
-        .work-item:hover img { transform: scale(1.04); }
-        .work-label {
-            position: absolute; bottom: 0; left: 0; right: 0;
-            background: linear-gradient(transparent, rgba(0,0,0,0.72));
-            color: white;
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 0.8rem; font-weight: 600;
-            letter-spacing: 0.12em; text-transform: uppercase;
-            padding: 28px 12px 10px;
-        }
-        .ba-label-header {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 0.78rem;
-            font-weight: 700;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--red);
-            margin-bottom: 6px;
-        }
-        @media (max-width: 960px) {
-            .before-after { grid-template-columns: 1fr; }
-            .work-grid { grid-template-columns: 1fr 1fr; }
-            .ba-item img, .work-item img { height: 200px; }
-        }
-
-        
-        /* DESIGN-BUILD */
-        #design-build { background: var(--charcoal); }
-        #design-build .section-title { color: var(--white); }
-
-        .db-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
-            margin-top: 48px;
-            align-items: start;
-        }
-
-        .db-left p {
-            font-size: 1.05rem;
-            color: var(--light-gray);
-            line-height: 1.8;
-            margin-bottom: 20px;
-            max-width: 520px;
-            opacity: 0.85;
-        }
-
-        .db-steps { list-style: none; margin-top: 8px; }
-        .db-steps li {
-            display: flex;
-            gap: 20px;
-            align-items: flex-start;
-            padding: 20px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.07);
-        }
-        .db-step-num {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--red);
-            line-height: 1;
-            flex-shrink: 0;
-            width: 32px;
-        }
-        .db-step-content h4 {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
-            color: var(--white);
-            margin-bottom: 4px;
-        }
-        .db-step-content p {
-            font-size: 0.88rem;
-            color: var(--light-gray);
-            opacity: 0.7;
-            line-height: 1.6;
-            margin: 0;
-            max-width: 100%;
-        }
-
-        .db-callout {
-            background: rgba(227,0,0,0.08);
-            border-left: 4px solid var(--red);
-            padding: 28px 32px;
-            margin-top: 36px;
-        }
-        .db-callout p {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--white);
-            line-height: 1.5;
-            margin: 0;
-            opacity: 1 !important;
-        }
-
-        @media (max-width: 960px) {
-            .db-grid { grid-template-columns: 1fr; gap: 48px; }
-        }
-
-        </style>
+  /* ============================================================
+     FOOTER
+     ============================================================ */
+  footer {
+    background: var(--white);
+    border-top: 1px solid var(--gray);
+    padding: 40px 0;
+  }
+  .footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .footer-legal {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--ink-soft);
+    line-height: 1.8;
+  }
+  .footer-nav { display: flex; gap: 24px; flex-wrap: wrap; }
+  .footer-nav a {
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+    font-weight: 400;
+  }
+  .footer-nav a:hover { color: var(--navy); }
+  .footer-domain {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: #A0A8B0;
+  }
+</style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav id="navbar">
-    <img src="/images/logo.png" alt="Lewis Construction and Design" class="nav-logo">
-    <ul class="nav-links">
-        <li><a href="#services">Services</a></li>
-        <li><a href="#commercial">Commercial</a></li>
-        <li><a href="#design-build">Design-Build</a></li>
-        <li><a href="#work">Our Work</a></li>
-        <li><a href="#why">Why Us</a></li>
-        <li><a href="#contact" class="nav-cta">Get a Quote</a></li>
-    </ul>
-</nav>
+<!-- ============================================================
+     HEADER
+     ============================================================ -->
+<header>
+  <div class="wrap header-inner">
 
-<!-- HERO -->
-<section id="hero">
-    <div class="hero-inner">
-        <div class="hero-eyebrow">Licensed General Contractor &nbsp;·&nbsp; Design-Build &nbsp;·&nbsp; License #92880 &nbsp;·&nbsp; DMV Area</div>
-        <h1 class="hero-headline">
-            We Build<br><span>Your Dreams.</span>
-        </h1>
-        <p class="hero-sub">
-            From ground-up construction to full gut renovations — residential and commercial work done right, on time, and on budget. Serving DC, Maryland, and Virginia.
-        </p>
+    <a href="#home" class="logo" aria-label="Lewis Construction Services, Inc. — home">
+      <img class="logo-icon"
+           src="/images/lcs-logo-navy.png"
+           alt="Lewis Construction Services monogram"
+           aria-hidden="true">
+
+      <div class="logo-text">
+        <span class="lewis">LEWIS</span>
+        <span class="sub">CONSTRUCTION SERVICES <span class="inc">INC</span></span>
+      </div>
+    </a>
+
+    <nav class="primary-nav" id="primary-nav">
+      <a href="#home">Home</a>
+      <a href="#commercial">Commercial Projects</a>
+      <a href="#residential">Residential Projects</a>
+      <a href="#about">About</a>
+      <a href="#contact" class="nav-contact">Contact</a>
+    </nav>
+
+    <button class="nav-toggle" id="nav-toggle"
+            aria-label="Toggle navigation"
+            aria-expanded="false"
+            aria-controls="primary-nav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+
+  <!-- ============================================================
+       HERO
+       ============================================================ -->
+  <section class="hero" id="home">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <div class="eyebrow">MD · DC · VA</div>
+        <h1>GENERAL CONTRACTING FOR COMMERCIAL &amp; RESIDENTIAL PROJECTS</h1>
+        <p>Lewis Construction Services delivers commercial and residential construction across DC, Maryland, and Virginia — licensed, experienced, and built to handle projects of every scale.</p>
         <div class="hero-actions">
-            <a href="#contact" class="btn-primary">Get a Free Quote</a>
-            <a href="#work" class="btn-secondary">See Our Work</a>
+          <a href="#contact" class="btn btn-primary">Start a Project</a>
+          <a href="#work" class="btn btn-ghost">See Our Work</a>
         </div>
-        <div class="hero-stats">
+        <div class="credentials">
+          <span class="cred">MD MHIC LIC. #92880</span>
+          <span class="cred">30+ YEARS EXPERIENCE</span>
+          <span class="cred">COMMERCIAL &amp; RESIDENTIAL</span>
+        </div>
+      </div>
+
+      <div class="hero-photo">
+        <div class="hero-photo-frame">
+          <div class="corner tl"></div>
+          <div class="corner br"></div>
+          <img
+            src="https://www.lewisconstruction.design/images/house_front.jpg"
+            alt="Full interior and exterior renovation completed by Lewis Construction Services"
+            loading="eager"
+          >
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap"><div class="dim-line"></div></div>
+
+  <!-- ============================================================
+       CAPABILITIES
+       ============================================================ -->
+  <section id="capabilities">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Capabilities</div>
+        <h2>Two client bases. One standard of work.</h2>
+      </div>
+      <div class="capabilities-grid">
+        <div class="capability-card" id="commercial">
+          <h3>Commercial Projects</h3>
+          <p>Tenant fit-outs, institutional renovation, and commercial build-outs across the DMV. Lewis Construction Services handles commercial scopes of every size, from initial walkthrough through final close-out.</p>
+          <a href="#contact" class="card-link">Discuss a Commercial Project →</a>
+        </div>
+        <div class="capability-card" id="residential">
+          <h3>Residential Projects</h3>
+          <p>Second-floor additions, full gut renovations, kitchens, baths, decks, and roofing. Design work coordinated in-house; stamped drawings handled through partnered licensed architects and engineers where required.</p>
+          <a href="#work" class="card-link">View Residential Work →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PROCESS
+       ============================================================ -->
+  <section class="bg-tint" id="process">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Process</div>
+        <h2>How a project moves from walkthrough to close-out.</h2>
+      </div>
+      <div class="process-list">
+        <div class="process-step">
+          <h4>Site Assessment &amp; Design Coordination</h4>
+          <p>On-site walkthrough and design coordination, with partnered licensed architects and engineers engaged where stamped drawings are required.</p>
+        </div>
+        <div class="process-step">
+          <h4>Scope &amp; Proposal</h4>
+          <p>Detailed scope of work, trade breakdown, and firm proposal — no generic allowances.</p>
+        </div>
+        <div class="process-step">
+          <h4>Construction &amp; Delivery</h4>
+          <p>Coordinated construction delivery from groundbreak through structural and finish work, on schedule and on scope.</p>
+        </div>
+        <div class="process-step">
+          <h4>Walkthrough &amp; Close-Out</h4>
+          <p>Final walkthrough, punch list resolution, and full project documentation handed over on close.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       OUR WORK
+       ============================================================ -->
+  <section id="work">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Selected Work</div>
+        <h2>Real Projects. Real Results.</h2>
+        <p>A sample of completed residential work across the DMV — additions, renovations, kitchens, baths, and custom decks.</p>
+      </div>
+
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-photo">
+            <span class="project-tag">Residential</span>
+            <img src="https://www.lewisconstruction.design/images/addition_after.png"
+                 alt="Completed second-floor addition — full second floor added to brick ranch home"
+                 loading="lazy">
+          </div>
+          <h4>Second-Floor Addition</h4>
+          <div class="loc">PG County, MD</div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-photo">
+            <span class="project-tag">Residential</span>
+            <img src="https://www.lewisconstruction.design/images/deck.jpeg"
+                 alt="Custom gazebo deck construction"
+                 loading="lazy">
+          </div>
+          <h4>Custom Gazebo Deck</h4>
+          <div class="loc">Maryland, DMV</div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-photo">
+            <span class="project-tag">Residential</span>
+            <img src="https://www.lewisconstruction.design/images/brick_front.jpg"
+                 alt="Brick ranch full renovation — exterior and interior"
+                 loading="lazy">
+          </div>
+          <h4>Brick Ranch Renovation</h4>
+          <div class="loc">Maryland, DMV</div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-photo">
+            <span class="project-tag">Residential</span>
+            <img src="https://www.lewisconstruction.design/images/house_deck.jpg"
+                 alt="Elevated deck build"
+                 loading="lazy">
+          </div>
+          <h4>Elevated Deck Build</h4>
+          <div class="loc">Maryland, DMV</div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-photo">
+            <span class="project-tag">Residential</span>
+            <img src="https://www.lewisconstruction.design/images/bathroom.jpeg"
+                 alt="Full bathroom renovation"
+                 loading="lazy">
+          </div>
+          <h4>Bathroom Renovation</h4>
+          <div class="loc">Maryland, DMV</div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-photo">
+            <span class="project-tag">Residential</span>
+            <img src="https://www.lewisconstruction.design/images/sm_kitchen.jpeg"
+                 alt="Kitchen remodel"
+                 loading="lazy">
+          </div>
+          <h4>Kitchen Remodel</h4>
+          <div class="loc">Maryland, DMV</div>
+        </div>
+      </div>
+
+      <!-- Before / After -->
+      <div class="before-after-section">
+        <div class="before-after-group">
+          <div class="ba-group-label">Before &amp; After — Second-Floor Addition, Project 1</div>
+          <div class="before-after-pair">
+            <div class="ba-item before">
+              <img src="https://www.lewisconstruction.design/images/addition_before.png"
+                   alt="Before — single-story brick ranch home prior to second-floor addition"
+                   loading="lazy">
+              <span class="ba-badge">Before</span>
+              <div class="ba-caption">Single-story brick ranch</div>
+            </div>
+            <div class="ba-item after">
+              <img src="https://www.lewisconstruction.design/images/addition_after.png"
+                   alt="After — full second floor added to brick ranch home"
+                   loading="lazy">
+              <span class="ba-badge">After</span>
+              <div class="ba-caption">Full second floor added</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="before-after-group">
+          <div class="ba-group-label">Before &amp; After — Full Gut Renovation &amp; Rebuild, Project 2</div>
+          <div class="before-after-pair">
+            <div class="ba-item before">
+              <img src="https://www.lewisconstruction.design/images/addition2_before.png"
+                   alt="Before — house mid-construction, framing up with no siding"
+                   loading="lazy">
+              <span class="ba-badge">Before</span>
+              <div class="ba-caption">Frame up, no siding</div>
+            </div>
+            <div class="ba-item after">
+              <img src="https://www.lewisconstruction.design/images/addition2_after.jpg"
+                   alt="After — fully finished exterior following gut renovation and rebuild"
+                   loading="lazy">
+              <span class="ba-badge">After</span>
+              <div class="ba-caption">Full gut renovation &amp; rebuild</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="wrap"><div class="dim-line"></div></div>
+
+  <!-- ============================================================
+       ABOUT — two-column text, no photo
+       ============================================================ -->
+  <section id="about">
+    <div class="wrap">
+      <div class="about-grid">
+        <div class="about-left">
+          <div class="eyebrow">About</div>
+          <h2>A licensed general contractor with 30 years in the DMV.</h2>
+        </div>
+        <div class="about-right">
+          <p>Lewis Construction Services has delivered residential and commercial projects across DC, Maryland, and Virginia for more than three decades — with the credentials, capacity, and trade relationships to handle scopes of every scale.</p>
+          <p>Licensed, insured, and equipped across a full range of construction disciplines, from cosmetic renovations to ground-up commercial build-outs.</p>
+          <div class="about-stats">
             <div>
-                <div class="stat-num">30+</div>
-                <div class="stat-label">Years Experience</div>
+              <div class="stat-label">Experience</div>
+              <div class="stat-value">30+ Years</div>
             </div>
             <div>
-                <div class="stat-num">500+</div>
-                <div class="stat-label">Projects Completed</div>
+              <div class="stat-label">Licensed</div>
+              <div class="stat-value">MD MHIC #92880</div>
             </div>
             <div>
-                <div class="stat-num">DMV</div>
-                <div class="stat-label">DC · MD · VA</div>
+              <div class="stat-label">Service Area</div>
+              <div class="stat-value">DC · MD · VA</div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-</section>
+  </section>
 
-<!-- SERVICES -->
-<section id="services">
-    <div class="section-eyebrow">What We Do</div>
-    <h2 class="section-title">Residential Services</h2>
-    <p class="services-intro">We handle everything from cosmetic updates to full new construction. No job too big, no detail too small.</p>
-
-    <div class="services-grid">
-        <div class="service-card fade-up">
-            <span class="service-icon">🏠</span>
-            <div class="service-name">New Construction</div>
-            <p class="service-desc">Building from the ground up. We manage the full build from foundation to finish, coordinating every trade on your behalf.</p>
-        </div>
-        <div class="service-card fade-up">
-            <span class="service-icon">🔨</span>
-            <div class="service-name">Full Renovations</div>
-            <p class="service-desc">Gut rehabs, kitchen and bath remodels, additions, and vertical expansions. We deliver complete transformations.</p>
-        </div>
-        <div class="service-card fade-up">
-            <span class="service-icon">🏗️</span>
-            <div class="service-name">Roofing</div>
-            <p class="service-desc">Full roof replacements, repairs, and installations. Quality materials, clean workmanship, built to last.</p>
-        </div>
-        <div class="service-card fade-up">
-            <span class="service-icon">🪵</span>
-            <div class="service-name">Decks &amp; Additions</div>
-            <p class="service-desc">Custom decks, patios, room additions, and structural expansions — designed to add real value to your property.</p>
-        </div>
-        <div class="service-card fade-up">
-            <span class="service-icon">⚡</span>
-            <div class="service-name">Electrical &amp; Plumbing</div>
-            <p class="service-desc">Full electrical and plumbing services for residential projects. Panels, wiring, rough-in, and finish work.</p>
-        </div>
-        <div class="service-card fade-up">
-            <span class="service-icon">🎨</span>
-            <div class="service-name">Interior Finishes</div>
-            <p class="service-desc">Drywall, painting, flooring, trim, and finish carpentry. The details that make a house feel like home.</p>
-        </div>
-    </div>
-</section>
-
-<!-- COMMERCIAL -->
-<section id="commercial">
-    <div class="section-eyebrow">Commercial Work</div>
-    <h2 class="section-title">We Work Commercial Too</h2>
-    <p class="services-intro">Lewis Construction and Design takes on commercial projects of all sizes — from tenant fit-outs to full build-outs.</p>
-
-    <div class="commercial-grid">
-        <div class="commercial-block fade-up">
-            <h3>Electrical</h3>
-            <p>Commercial panel upgrades, service installations, lighting, conduit runs, and code compliance work. We know what inspectors look for and we build to pass.</p>
-        </div>
-        <div class="commercial-block fade-up">
-            <h3>Plumbing</h3>
-            <p>Rough-in, finish plumbing, commercial fixture installations, and water service work. Licensed and insured for commercial scope.</p>
-        </div>
-        <div class="commercial-block fade-up">
-            <h3>Buildouts &amp; Renovations</h3>
-            <p>Office and retail buildouts, drywall, ceilings, flooring, and interior finishes for commercial properties.</p>
-        </div>
-        <div class="commercial-block fade-up">
-            <h3>Subcontracting</h3>
-            <p>We work as a reliable sub for GCs and developers who need a dependable crew for specific scopes. Call us.</p>
-        </div>
-    </div>
-</section>
-
-<!-- DESIGN-BUILD -->
-<section id="design-build">
-    <div class="section-eyebrow">Design-Build</div>
-    <h2 class="section-title">One Contractor.<br>From Idea to Done.</h2>
-
-    <div class="db-grid">
-        <div class="db-left">
-            <p>Most homeowners hire a designer, then go find a contractor — and spend months managing two separate people who've never worked together. We cut that out entirely.</p>
-            <p>We bring over 30 years of construction experience to the design process. We know what's buildable, what it costs, and what will hold up. When we design it, we build it — no translation errors, no finger-pointing, no surprises.</p>
-
-            <div class="db-callout">
-                <p>"We design it. We build it. One team accountable from start to finish."</p>
-            </div>
-        </div>
-
-        <div>
-            <ul class="db-steps">
-                <li class="fade-up">
-                    <div class="db-step-num">01</div>
-                    <div class="db-step-content">
-                        <h4>Consultation</h4>
-                        <p>We walk the property with you, understand what you want, and tell you what's realistic — scope, cost, and timeline — before anything is committed.</p>
-                    </div>
-                </li>
-                <li class="fade-up">
-                    <div class="db-step-num">02</div>
-                    <div class="db-step-content">
-                        <h4>Design</h4>
-                        <p>We develop the plan — layout, materials, finishes, structural requirements. Built around your budget, not the other way around.</p>
-                    </div>
-                </li>
-                <li class="fade-up">
-                    <div class="db-step-num">03</div>
-                    <div class="db-step-content">
-                        <h4>Proposal</h4>
-                        <p>You get a clear written scope and fixed price before we break ground. No surprises once work starts.</p>
-                    </div>
-                </li>
-                <li class="fade-up">
-                    <div class="db-step-num">04</div>
-                    <div class="db-step-content">
-                        <h4>Build</h4>
-                        <p>We execute. We're on site. You get updates throughout. We finish what we started.</p>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
-</section>
-
-<!-- WORK -->
-<section id="work">
-    <div class="section-eyebrow">Our Work</div>
-    <h2 class="section-title">Real Projects.<br>Real Results.</h2>
-    <p class="services-intro">A sample of completed work across the DMV — from full additions to kitchens, baths, and custom decks.</p>
-
-    <!-- Before / After Feature -->
-    <div class="ba-label-header fade-up">Second-Floor Addition &nbsp;·&nbsp; Project 1</div>
-    <div class="before-after">
-        <div class="ba-item fade-up">
-            <img src="/images/addition_before.png" alt="Before - single story brick home" style="object-fit: contain; background: #1a1a1a;">
-            <div class="ba-label">
-                <span>Brick Ranch</span>
-                <span class="ba-tag">Before</span>
-            </div>
-        </div>
-        <div class="ba-item fade-up">
-            <img src="/images/addition_after.png" alt="After - full second floor addition">
-            <div class="ba-label">
-                <span>Full Second Floor Added</span>
-                <span class="ba-tag">After</span>
-            </div>
-        </div>
-    </div>
-
-    <div class="ba-label-header fade-up" style="margin-top:24px;">Second-Floor Addition &nbsp;·&nbsp; Project 2</div>
-    <div class="before-after">
-        <div class="ba-item fade-up">
-            <img src="/images/addition2_before.png" alt="Before - house mid-construction">
-            <div class="ba-label">
-                <span>Frame Up, No Siding</span>
-                <span class="ba-tag">Before</span>
-            </div>
-        </div>
-        <div class="ba-item fade-up">
-            <img src="/images/addition2_after.jpg" alt="After - fully finished exterior">
-            <div class="ba-label">
-                <span>Full Gut Renovation &amp; Rebuild</span>
-                <span class="ba-tag">After</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- Work Grid -->
-    <div class="work-grid">
-        <div class="work-item fade-up">
-            <img src="/images/deck.jpeg" alt="Custom gazebo deck">
-            <div class="work-label">Custom Gazebo Deck</div>
-        </div>
-        <div class="work-item fade-up">
-            <img src="/images/house_front.jpg" alt="Exterior renovation">
-            <div class="work-label">Full Interior &amp; Exterior Renovation</div>
-        </div>
-        <div class="work-item fade-up">
-            <img src="/images/house_deck.jpg" alt="Elevated deck build">
-            <div class="work-label">Elevated Deck Build</div>
-        </div>
-        <div class="work-item fade-up">
-            <img src="/images/brick_front.jpg" alt="Brick ranch renovation">
-            <div class="work-label">Brick Ranch Renovation</div>
-        </div>
-        <div class="work-item fade-up">
-            <img src="/images/bathroom.jpeg" alt="Bathroom renovation">
-            <div class="work-label">Bathroom Renovation</div>
-        </div>
-        <div class="work-item fade-up">
-            <img src="/images/sm_kitchen.jpeg" alt="Kitchen remodel">
-            <div class="work-label">Kitchen Remodel</div>
-        </div>
-    </div>
-</section>
-
-<!-- WHY US -->
-<section id="why">
-    <div class="section-eyebrow">Why Lewis</div>
-    <h2 class="section-title">We Show Up.<br>We Do the Work.</h2>
-
-    <div class="why-grid">
-        <div class="why-text">
-            <p>We've been building in the DMV for over 30 years. Hundreds of completed projects, every type of residential and commercial work, and a reputation built on showing up and finishing the job.</p>
-            <p>We don't disappear after the contract is signed. We're on site, we're accountable, and we don't cut corners.</p>
-            <a href="#contact" class="btn-primary" style="margin-top:12px;">Get a Quote</a>
-        </div>
-        <ul class="why-list">
-            <li>30+ years of construction experience in the DMV</li>
-            <li>Licensed general contractor — residential and commercial</li>
-            <li>Every skill your project needs, one team</li>
-            <li>We work with investors, homeowners, and developers</li>
-            <li>Reliable subcontracting for larger GCs</li>
-            <li>Serving DC, Maryland, and Virginia</li>
-        </ul>
-    </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact">
-    <div class="section-eyebrow">Get Started</div>
-    <h2 class="contact-title">Ready to <span>Build?</span></h2>
-    <p class="contact-sub">Tell us what you need. We'll get back to you fast with a straight answer and a fair price.</p>
-    <a href="tel:3014522823" class="btn-primary">Call 301.452.2823</a>
-
-    <div class="contact-info">
-        <div class="contact-item">
-            <div class="contact-item-label">Phone</div>
-            <a href="tel:3014522823">301.452.2823</a>
-        </div>
-        <div class="contact-item">
-            <div class="contact-item-label">Email</div>
-            <a href="mailto:info@lewisconstruction.design">info@lewisconstruction.design</a>
-        </div>
-        <div class="contact-item">
-            <div class="contact-item-label">Service Area</div>
-            <span>DC · Maryland · Virginia</span>
-        </div>
-    </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-    <img src="/images/logo.png" alt="Lewis Construction and Design" class="footer-logo">
-    <div class="footer-meta">
-        © 2025 Lewis Construction and Design. All rights reserved. &nbsp;·&nbsp; MD License #92880 &nbsp;·&nbsp;
+  <!-- ============================================================
+       CTA
+       ============================================================ -->
+  <section class="bg-navy" id="contact">
+    <div class="wrap cta-inner">
+      <h2>Ready to talk through your project?</h2>
+      <div class="cta-contact">
+        <a href="tel:3014522823">301.452.2823</a>
         <a href="mailto:info@lewisconstruction.design">info@lewisconstruction.design</a>
+      </div>
     </div>
+  </section>
+
+</main>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer>
+  <div class="wrap footer-inner">
+    <div class="footer-legal">
+      © 2026 Lewis Construction Services, Inc. All rights reserved.<br>
+      Licensed General Contractor — MD MHIC #92880
+    </div>
+    <nav class="footer-nav">
+      <a href="#home">Home</a>
+      <a href="#commercial">Commercial Projects</a>
+      <a href="#residential">Residential Projects</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="footer-domain">lewisconstruction.design</div>
+  </div>
 </footer>
 
 <script>
-    const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-        navbar.classList.toggle('scrolled', window.scrollY > 40);
+  var toggle = document.getElementById('nav-toggle');
+  var nav    = document.getElementById('primary-nav');
+  toggle.addEventListener('click', function () {
+    var open = nav.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  nav.querySelectorAll('a').forEach(function (link) {
+    link.addEventListener('click', function () {
+      nav.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
     });
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry, i) => {
-            if (entry.isIntersecting) {
-                setTimeout(() => entry.target.classList.add('visible'), i * 80);
-                observer.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  });
 </script>
 
 </body>
