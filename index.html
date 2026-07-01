@@ -190,8 +190,11 @@
   @media (max-width: 900px) {
     nav.primary-nav {
       position: fixed;
-      inset: 73px 0 0 0;
-      background: var(--white);
+      top: 73px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #FFFFFF;
       flex-direction: column;
       align-items: flex-start;
       padding: 36px var(--edge);
@@ -199,7 +202,8 @@
       transform: translateX(100%);
       transition: transform 0.25s ease;
       border-top: 1px solid var(--gray);
-      z-index: 99;
+      z-index: 999;
+      overflow-y: auto;
     }
     nav.primary-nav.open { transform: translateX(0); }
     nav.primary-nav a { font-size: 1.1rem; }
