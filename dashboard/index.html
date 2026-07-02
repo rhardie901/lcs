@@ -159,7 +159,7 @@ tr:last-child td{border-bottom:none;}
 
     <div id="page-projects" class="page">
       <div class="page-heading"><h1>Projects</h1><p>All active and completed projects</p></div>
-      <div class="section-header"><div class="section-title">All projects</div><button class="btn btn-primary btn-sm" onclick="openModal('modal-project')">+ New project</button></div>
+      <div class="section-header"><div class="section-title">All projects</div><button class="btn btn-primary btn-sm" onclick="editProjectId=null;document.getElementById('p-name').value='';document.getElementById('p-client').value='';document.getElementById('p-email').value='';document.getElementById('p-address').value='';document.getElementById('p-status').value='active';document.getElementById('p-budget').value='';document.getElementById('p-start').value='';document.getElementById('p-end').value='';document.getElementById('p-notes').value='';document.querySelector('#modal-project .modal-title').textContent='New project';openModal('modal-project')">+ New project</button></div>
       <div id="projects-list"><div class="loading">Loading...</div></div>
     </div>
 
@@ -282,7 +282,7 @@ const sbH={'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'appl
 
 let projects=[];
 let curBudget=null,curSched=null,curCO=null,curReport=null;
-let editBudgetId=null,editTaskId=null,editCOId=null,editReportId=null;
+let editBudgetId=null,editTaskId=null,editCOId=null,editReportId=null,editProjectId=null;
 const budgetCache={},taskCache={},coCache={},reportCache={};
 
 async function sb(method,table,body,query=''){
@@ -380,6 +380,7 @@ async function loadProjects(){
         </div>
         ${p.notes?`<div style="font-size:0.8rem;color:#999;border-top:1px solid #f5f5f5;padding-top:10px;margin-top:4px;">${p.notes}</div>`:''}
         <div style="margin-top:12px;border-top:1px solid #f5f5f5;padding-top:12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <button class="btn btn-sm btn-primary" onclick="editProject('${p.id}')">Edit</button>
           ${p.status!=='archived'?`<button class="btn btn-sm" style="color:#aaa;" onclick="archiveProject('${p.id}')">Archive</button>`:`<button class="btn btn-sm" onclick="unarchiveProject('${p.id}')">Unarchive</button>`}
         </div>
       </div>`).join(''));
@@ -403,10 +404,37 @@ async function unarchiveProject(id){
   }catch(e){showError('Failed to unarchive: '+e.message);}
 }
 
+function editProject(id){
+  const p=projects.find(x=>x.id===id);if(!p)return;
+  editProjectId=id;
+  document.getElementById('p-name').value=p.name||'';
+  document.getElementById('p-client').value=p.client_name||'';
+  document.getElementById('p-email').value=p.client_email||'';
+  document.getElementById('p-address').value=p.address||'';
+  document.getElementById('p-status').value=p.status||'active';
+  document.getElementById('p-budget').value=p.approved_budget||'';
+  document.getElementById('p-start').value=p.start_date||'';
+  document.getElementById('p-end').value=p.target_end_date||'';
+  document.getElementById('p-notes').value=p.notes||'';
+  document.querySelector('#modal-project .modal-title').textContent='Edit project';
+  openModal('modal-project');
+}
+
 async function saveProject(){
   const body={name:document.getElementById('p-name').value,client_name:document.getElementById('p-client').value,client_email:document.getElementById('p-email').value,address:document.getElementById('p-address').value,status:document.getElementById('p-status').value,approved_budget:parseFloat(document.getElementById('p-budget').value)||null,start_date:document.getElementById('p-start').value||null,target_end_date:document.getElementById('p-end').value||null,notes:document.getElementById('p-notes').value};
   if(!body.name||!body.client_name){showError('Project name and client name are required.');return;}
-  try{await sb('POST','projects',body);closeModal('modal-project');loadProjects();}catch(e){showError('Save failed: '+e.message);}
+  try{
+    if(editProjectId){
+      const h={...sbH,'Prefer':'return=minimal'};
+      await fetch(`${SB_URL}/rest/v1/projects?id=eq.${editProjectId}`,{method:'PATCH',headers:h,body:JSON.stringify(body)});
+      editProjectId=null;
+    } else {
+      await sb('POST','projects',body);
+    }
+    closeModal('modal-project');
+    document.querySelector('#modal-project .modal-title').textContent='New project';
+    loadProjects();
+  }catch(e){showError('Save failed: '+e.message);}
 }
 
 async function loadBudget(){
