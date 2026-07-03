@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LCS · Quote Generator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #0B2545;
+            --gold: #C5A059;
+            --off-white: #F7F5F2;
+            --mid-gray: #6B6B6B;
+            --light-gray: #D0D3D4;
+            --white: #FFFFFF;
+            --border: #D0D3D4;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Barlow', sans-serif;
+            background: var(--off-white);
+            color: var(--navy);
+            min-height: 100vh;
+        }
+
+        /* LOGIN SCREEN */
+        #login-screen {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--navy);
+        }
+
+        .login-box {
+            background: var(--white);
+            padding: 52px 48px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .login-logo {
+            margin-bottom: 20px;
+        }
+        .login-logo img {
+            height: 52px;
+            width: auto;
+        }
+
+        .login-sub {
+            font-size: 0.82rem;
+            color: var(--mid-gray);
+            margin-bottom: 36px;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+        }
+
+        .login-input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1.5px solid var(--border);
+            font-family: 'Barlow', sans-serif;
+            font-size: 1rem;
+            color: var(--navy);
+            background: var(--off-white);
+            margin-bottom: 14px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .login-input:focus { border-color: var(--gold); }
+
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--gold);
+            color: var(--white);
+            border: none;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .login-btn:hover { background: #A6864A; }
+
+        .login-error {
+            color: var(--gold);
+            font-size: 0.82rem;
+            margin-top: 10px;
+            display: none;
+        }
+
+        /* ADMIN APP */
+        #admin-app { display: none; }
+
+        header {
+            background: var(--navy);
+            padding: 0 48px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .header-logo-img {
+            height: 32px;
+            width: auto;
+        }
+        .header-brand-text {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 800;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--white);
+        }
+
+        .header-logout {
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.4);
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            background: none;
+            border: none;
+            font-family: 'Barlow', sans-serif;
+            transition: color 0.2s;
+        }
+        .header-logout:hover { color: var(--gold); }
+
+        .app-body {
+            display: grid;
+            grid-template-columns: 480px 1fr;
+            gap: 0;
+            min-height: calc(100vh - 64px);
+        }
+
+        /* LEFT PANEL — FORM */
+        .form-panel {
+            background: var(--white);
+            padding: 40px 40px;
+            border-right: 1px solid var(--border);
+            overflow-y: auto;
+        }
+
+        .panel-title {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: var(--navy);
+            margin-bottom: 28px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .form-group { margin-bottom: 20px; }
+
+        label {
+            display: block;
+            font-size: 0.76rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--mid-gray);
+            margin-bottom: 6px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 11px 14px;
+            border: 1.5px solid var(--border);
+            font-family: 'Barlow', sans-serif;
+            font-size: 0.95rem;
+            color: var(--navy);
+            background: var(--off-white);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        input:focus, select:focus, textarea:focus { border-color: var(--gold); }
+
+        textarea { resize: vertical; min-height: 100px; line-height: 1.5; }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .generate-btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--gold);
+            color: var(--white);
+            border: none;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .generate-btn:hover { background: #A6864A; }
+        .generate-btn:disabled { background: #ccc; cursor: not-allowed; }
+
+        /* RIGHT PANEL — OUTPUT */
+        .output-panel {
+            padding: 40px 48px;
+            overflow-y: auto;
+            background: var(--off-white);
+        }
+
+        .output-title {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: var(--navy);
+            margin-bottom: 28px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid var(--light-gray);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .copy-btn {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            background: var(--navy);
+            color: var(--white);
+            border: none;
+            padding: 8px 18px;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: none;
+        }
+        .copy-btn:hover { background: var(--gold); }
+        .copy-btn.visible { display: block; }
+
+        .output-placeholder {
+            color: var(--mid-gray);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            padding: 48px 0;
+            text-align: center;
+            opacity: 0.6;
+        }
+
+        .output-placeholder svg {
+            display: block;
+            margin: 0 auto 20px;
+            opacity: 0.3;
+        }
+
+        #quote-output {
+            background: var(--white);
+            padding: 40px 44px;
+            border-left: 4px solid var(--gold);
+            font-size: 0.93rem;
+            line-height: 1.75;
+            color: var(--navy);
+            white-space: pre-wrap;
+            display: none;
+        }
+
+        .loading-state {
+            display: none;
+            text-align: center;
+            padding: 60px 0;
+            color: var(--mid-gray);
+        }
+        .loading-state .spinner {
+            width: 36px;
+            height: 36px;
+            border: 3px solid var(--light-gray);
+            border-top-color: var(--gold);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 16px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .loading-state p {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+        }
+
+        @media (max-width: 900px) {
+            .app-body { grid-template-columns: 1fr; }
+            .form-panel, .output-panel { padding: 28px 24px; }
+            header { padding: 0 24px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+    <div class="login-box">
+        <div class="login-logo"><img src="images/lcs-logo-transparent.png" alt="Lewis Construction and Design"></div>
+        <div class="login-sub">Admin · Quote Generator</div>
+        <input type="password" class="login-input" id="password-input" placeholder="Enter access code" />
+        <button class="login-btn" onclick="checkPassword()">Enter</button>
+        <div class="login-error" id="login-error">Incorrect access code.</div>
+    </div>
+</div>
+
+<!-- ADMIN APP -->
+<div id="admin-app">
+    <header>
+        <div class="header-brand">
+            <img src="images/lcs-logo-transparent.png" alt="Lewis Construction and Design" class="header-logo-img">
+            <span class="header-brand-text">Quote Generator</span>
+        </div>
+        <button class="header-logout" onclick="logout()">Log Out</button>
+    </header>
+
+    <div class="app-body">
+        <!-- FORM -->
+        <div class="form-panel">
+            <div class="panel-title">Job Details</div>
+
+            <div class="form-group">
+                <label>Client Name</label>
+                <input type="text" id="client-name" placeholder="e.g. John Smith">
+            </div>
+
+            <div class="form-group">
+                <label>Property Address</label>
+                <input type="text" id="property-address" placeholder="e.g. 123 Main St, Upper Marlboro, MD">
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Project Type</label>
+                    <select id="project-type">
+                        <option value="">Select type...</option>
+                        <option>Full Renovation</option>
+                        <option>Kitchen Remodel</option>
+                        <option>Bathroom Remodel</option>
+                        <option>Addition / Vertical Expansion</option>
+                        <option>New Construction</option>
+                        <option>Roofing</option>
+                        <option>Deck / Outdoor Structure</option>
+                        <option>Electrical</option>
+                        <option>Plumbing</option>
+                        <option>Interior Finishes</option>
+                        <option>Exterior / Siding</option>
+                        <option>Commercial Buildout</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Property Type</label>
+                    <select id="property-type">
+                        <option value="">Select...</option>
+                        <option>Single-Family</option>
+                        <option>Townhome</option>
+                        <option>Multi-Family (2-4 units)</option>
+                        <option>Commercial</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Estimated Sq Ft</label>
+                    <input type="text" id="sqft" placeholder="e.g. 1,200 sq ft">
+                </div>
+                <div class="form-group">
+                    <label>Estimated Timeline</label>
+                    <input type="text" id="timeline" placeholder="e.g. 8–10 weeks">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Scope of Work</label>
+                <textarea id="scope" placeholder="Describe the work to be done — demo, framing, electrical, plumbing, finishes, etc."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Materials / Finishes Notes</label>
+                <textarea id="materials" placeholder="Any specific materials, grade level, or client preferences..." style="min-height:72px;"></textarea>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Labor Cost Estimate ($)</label>
+                    <input type="text" id="labor-cost" placeholder="e.g. 18,000">
+                </div>
+                <div class="form-group">
+                    <label>Materials Cost Estimate ($)</label>
+                    <input type="text" id="materials-cost" placeholder="e.g. 12,000">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Additional Notes</label>
+                <textarea id="notes" placeholder="Permit requirements, special conditions, exclusions, etc." style="min-height:72px;"></textarea>
+            </div>
+
+            <button class="generate-btn" id="generate-btn" onclick="generateQuote()">
+                <span id="btn-text">Generate Quote</span>
+            </button>
+        </div>
+
+        <!-- OUTPUT -->
+        <div class="output-panel">
+            <div class="output-title">
+                <span>Generated Quote</span>
+                <button class="copy-btn" id="copy-btn" onclick="copyQuote()">Copy to Clipboard</button>
+            </div>
+
+            <div class="output-placeholder" id="output-placeholder">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <polyline points="14 2 14 8 20 8"/>
+                    <line x1="16" y1="13" x2="8" y2="13"/>
+                    <line x1="16" y1="17" x2="8" y2="17"/>
+                    <polyline points="10 9 9 9 8 9"/>
+                </svg>
+                Fill in the job details and click Generate Quote.
+            </div>
+
+            <div class="loading-state" id="loading-state">
+                <div class="spinner"></div>
+                <p>Generating quote...</p>
+            </div>
+
+            <pre id="quote-output"></pre>
+        </div>
+    </div>
+</div>
+
+<script>
+    const ACCESS_CODE = 'lewis2026';
+
+    function checkPassword() {
+        const val = document.getElementById('password-input').value;
+        if (val === ACCESS_CODE) {
+            window.location.href = 'https://lcs-quote-generator.vercel.app/';
+        } else {
+            document.getElementById('login-error').style.display = 'block';
+        }
+    }
+
+    document.getElementById('password-input').addEventListener('keydown', e => {
+        if (e.key === 'Enter') checkPassword();
+    });
+
+    function logout() {
+        document.getElementById('admin-app').style.display = 'none';
+        document.getElementById('login-screen').style.display = 'flex';
+        document.getElementById('password-input').value = '';
+    }
+
+    async function generateQuote() {
+        const clientName     = document.getElementById('client-name').value.trim();
+        const address        = document.getElementById('property-address').value.trim();
+        const projectType    = document.getElementById('project-type').value;
+        const propertyType   = document.getElementById('property-type').value;
+        const sqft           = document.getElementById('sqft').value.trim();
+        const timeline       = document.getElementById('timeline').value.trim();
+        const scope          = document.getElementById('scope').value.trim();
+        const materials      = document.getElementById('materials').value.trim();
+        const laborCost      = document.getElementById('labor-cost').value.trim();
+        const materialsCost  = document.getElementById('materials-cost').value.trim();
+        const notes          = document.getElementById('notes').value.trim();
+
+        if (!scope) {
+            alert('Please enter a scope of work.');
+            return;
+        }
+
+        const total = (laborCost && materialsCost)
+            ? `$${(parseFloat(laborCost.replace(/,/g,'')) + parseFloat(materialsCost.replace(/,/g,''))).toLocaleString()}`
+            : '';
+
+        const prompt = `You are generating a professional construction quote on behalf of Lewis Construction Services, a licensed general contractor based in the DMV area (DC, Maryland, Virginia). License #124529.
+
+Generate a clean, professional quote document based on the following job details:
+
+Client Name: ${clientName || 'TBD'}
+Property Address: ${address || 'TBD'}
+Project Type: ${projectType || 'General Construction'}
+Property Type: ${propertyType || 'Residential'}
+Estimated Sq Ft: ${sqft || 'TBD'}
+Estimated Timeline: ${timeline || 'TBD'}
+Scope of Work: ${scope}
+Materials / Finishes Notes: ${materials || 'Standard grade materials unless otherwise specified'}
+Labor Cost Estimate: ${laborCost ? '$' + laborCost : 'TBD'}
+Materials Cost Estimate: ${materialsCost ? '$' + materialsCost : 'TBD'}
+${total ? 'Total Estimated Cost: ' + total : ''}
+Additional Notes: ${notes || 'None'}
+
+Format the quote as a professional document with:
+1. Header with Lewis Construction Services info and date
+2. Client and property info
+3. Project overview
+4. Detailed scope of work (broken into clear line items)
+5. Cost breakdown (labor, materials, total)
+6. Timeline
+7. Terms and conditions (standard: 50% deposit to start, balance on completion; quote valid 30 days; client responsible for permits unless otherwise agreed)
+8. Signature lines for both parties
+
+Keep the tone professional and direct. Use plain language. Do not use bullet points for the main sections — use clear headings and numbered items for the scope.`;
+
+        // Show loading
+        document.getElementById('generate-btn').disabled = true;
+        document.getElementById('output-placeholder').style.display = 'none';
+        document.getElementById('quote-output').style.display = 'none';
+        document.getElementById('loading-state').style.display = 'block';
+        document.getElementById('copy-btn').classList.remove('visible');
+
+        try {
+            const response = await fetch('https://api.anthropic.com/v1/messages', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    model: 'claude-sonnet-4-20250514',
+                    max_tokens: 1000,
+                    messages: [{ role: 'user', content: prompt }]
+                })
+            });
+
+            const data = await response.json();
+            const text = data.content?.map(b => b.text || '').join('') || 'Error generating quote.';
+
+            document.getElementById('loading-state').style.display = 'none';
+            document.getElementById('quote-output').style.display = 'block';
+            document.getElementById('quote-output').textContent = text;
+            document.getElementById('copy-btn').classList.add('visible');
+
+        } catch (err) {
+            document.getElementById('loading-state').style.display = 'none';
+            document.getElementById('output-placeholder').style.display = 'block';
+            document.getElementById('output-placeholder').textContent = 'Error generating quote. Check your connection and try again.';
+        }
+
+        document.getElementById('generate-btn').disabled = false;
+    }
+
+    function copyQuote() {
+        const text = document.getElementById('quote-output').textContent;
+        navigator.clipboard.writeText(text).then(() => {
+            const btn = document.getElementById('copy-btn');
+            btn.textContent = 'Copied!';
+            setTimeout(() => btn.textContent = 'Copy to Clipboard', 2000);
+        });
+    }
+</script>
+
+</body>
+</html>
