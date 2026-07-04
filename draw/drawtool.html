@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Room Sketch Tool</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: #F4F4F2;
+    margin: 0;
+    padding: 16px;
+    color: #2C2C2A;
+  }
+  .wrap { max-width: 480px; margin: 0 auto; }
+  h1 {
+    font-size: 17px;
+    font-weight: 600;
+    margin: 0 0 12px;
+    color: #0B2545;
+  }
+  .toolbar { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+  button {
+    font-size: 13px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #C7C7C2;
+    background: #fff;
+    color: #2C2C2A;
+    cursor: pointer;
+  }
+  button.active {
+    border: 2px solid #185FA5;
+    color: #0C447C;
+    background: #E6F1FB;
+  }
+  button:active { transform: scale(0.97); }
+  .canvas-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+  }
+  canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    touch-action: none;
+    background: #fff;
+    border: 1px solid #D0D3D4;
+    border-radius: 8px;
+  }
+  .actions { display: flex; gap: 6px; margin-top: 10px; }
+  .hint {
+    font-size: 12px;
+    color: #6b6b66;
+    margin-top: 10px;
+    line-height: 1.5;
+  }
+  .status {
+    font-size: 11px;
+    color: #8a8a85;
+    margin-top: 4px;
+    min-height: 14px;
+  }
+  input[type=text].labelinput {
+    position: absolute;
+    width: 130px;
+    z-index: 5;
+    font-size: 13px;
+    padding: 4px 6px;
+    border: 1px solid #185FA5;
+    border-radius: 4px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Room sketch</h1>
+  <div class="toolbar">
+    <button id="mode-wall" data-mode="wall">Wall</button>
+    <button id="mode-free" data-mode="free">Free</button>
+    <button id="mode-note" data-mode="note">Note</button>
+    <button id="mode-measure" data-mode="measure">Measure</button>
+  </div>
+  <div class="canvas-wrap">
+    <canvas id="canvas" width="400" height="400"></canvas>
+  </div>
+  <div class="actions">
+    <button id="undo-btn">Undo</button>
+    <button id="clear-btn">Clear</button>
+    <button id="save-btn">Save image</button>
+  </div>
+  <p class="status" id="status"></p>
+  <p class="hint">Wall / Measure: drag a straight line. Free: drag to sketch. Note: tap once to drop a label. Rough scale only — type the real measurement when prompted. Your sketch auto-saves in this artifact, so you can close and come back to keep editing.</p>
+</div>
+<script>
+(function(){
+  var canvas = document.getElementById('canvas');
+  var ctx = canvas.getContext('2d');
+  var wrap = canvas.parentElement;
+  var statusEl = document.getElementById('status');
+  var mode = 'wall';
+  var actions = [];
+  var drawing = false;
+  var current = null;
+
+  var wallColor = '#2C2C2A';
+  var measureColor = '#185FA5';
+  var noteBg = '#E6F1FB';
+  var noteText = '#0C447C';
+  var gridColor = 'rgba(0,0,0,0.07)';
+
+  var STORAGE_KEY = 'room-sketch:current';
+
+  function setStatus(msg){
+    statusEl.textContent = msg;
+    if (msg) setTimeout(function(){ if (statusEl.textContent === msg) statusEl.textContent = ''; }, 1800);
+  }
+
+  function saveState(){
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(actions));
+      setStatus('Saved');
+    } catch (e){
+      // storage not available, ignore silently
+    }
+  }
+
+  function loadState(){
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        actions = JSON.parse(raw);
+        redraw();
+      }
+    } catch (e){
+      // no saved sketch yet
+    }
+  }
+
+  document.querySelectorAll('.toolbar button').forEach(function(b){
+    b.addEventListener('click', function(){
+      mode = b.getAttribute('data-mode');
+      document.querySelectorAll('.toolbar button').forEach(function(x){ x.classList.remove('active'); });
+      b.classList.add('active');
+    });
+  });
+  document.getElementById('mode-wall').classList.add('active');
+
+  function getPos(e){
+    var rect = canvas.getBoundingClientRect();
+    var cx = (e.touches ? e.touches[0].clientX : e.clientX);
+    var cy = (e.touches ? e.touches[0].clientY : e.clientY);
+    return {
+      x: (cx - rect.left) * (canvas.width / rect.width),
+      y: (cy - rect.top) * (canvas.height / rect.height)
+    };
+  }
+
+  function drawGrid(){
+    ctx.strokeStyle = gridColor;
+    ctx.lineWidth = 1;
+    for (var i = 0; i <= canvas.width; i += 20){
+      ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, canvas.height); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(0, i); ctx.lineTo(canvas.width, i); ctx.stroke();
+    }
+  }
+
+  function drawArrowHead(x, y, angle, color){
+    var size = 6;
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(angle);
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.lineTo(-size, -size / 2);
+    ctx.lineTo(-size, size / 2);
+    ctx.closePath();
+    ctx.fillStyle = color;
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function drawAction(a){
+    if (a.type === 'wall'){
+      ctx.strokeStyle = wallColor;
+      ctx.lineWidth = 4;
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(a.points[0].x, a.points[0].y);
+      ctx.lineTo(a.points[1].x, a.points[1].y);
+      ctx.stroke();
+    } else if (a.type === 'free'){
+      ctx.strokeStyle = wallColor;
+      ctx.lineWidth = 2.5;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      ctx.beginPath();
+      a.points.forEach(function(p, i){ i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y); });
+      ctx.stroke();
+    } else if (a.type === 'measure'){
+      var p0 = a.points[0], p1 = a.points[1];
+      var angle = Math.atan2(p1.y - p0.y, p1.x - p0.x);
+      ctx.strokeStyle = measureColor;
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([4, 3]);
+      ctx.beginPath();
+      ctx.moveTo(p0.x, p0.y);
+      ctx.lineTo(p1.x, p1.y);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      drawArrowHead(p1.x, p1.y, angle, measureColor);
+      drawArrowHead(p0.x, p0.y, angle + Math.PI, measureColor);
+      if (a.text){
+        var mx = (p0.x + p1.x) / 2, my = (p0.y + p1.y) / 2;
+        ctx.font = '12px sans-serif';
+        var w = ctx.measureText(a.text).width;
+        ctx.fillStyle = '#fff';
+        ctx.fillRect(mx - w / 2 - 4, my - 15, w + 8, 16);
+        ctx.fillStyle = measureColor;
+        ctx.textAlign = 'center';
+        ctx.fillText(a.text, mx, my - 3);
+      }
+    } else if (a.type === 'note'){
+      ctx.beginPath();
+      ctx.arc(a.point.x, a.point.y, 5, 0, Math.PI * 2);
+      ctx.fillStyle = measureColor;
+      ctx.fill();
+      if (a.text){
+        ctx.font = '12px sans-serif';
+        var tw = ctx.measureText(a.text).width;
+        var tx = a.point.x + 10, ty = a.point.y;
+        var boxX = tx - 4, boxY = ty - 12, boxW = tw + 8, boxH = 17;
+        if (boxX + boxW > canvas.width) { tx = a.point.x - 10 - tw; boxX = tx - 4; }
+        ctx.fillStyle = noteBg;
+        ctx.fillRect(boxX, boxY, boxW, boxH);
+        ctx.fillStyle = noteText;
+        ctx.textAlign = 'left';
+        ctx.fillText(a.text, tx, ty);
+      }
+    }
+  }
+
+  function redraw(){
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawGrid();
+    actions.forEach(drawAction);
+    if (current) drawAction(current);
+  }
+
+  function promptText(point, onDone){
+    var input = document.createElement('input');
+    input.type = 'text';
+    input.className = 'labelinput';
+    input.placeholder = 'label or measurement';
+    var rect = canvas.getBoundingClientRect();
+    var scale = rect.width / canvas.width;
+    input.style.left = (point.x * scale) + 'px';
+    input.style.top = (point.y * scale) + 'px';
+    wrap.appendChild(input);
+    input.focus();
+    var done = false;
+    function finish(){
+      if (done) return;
+      done = true;
+      var val = input.value.trim();
+      if (wrap.contains(input)) wrap.removeChild(input);
+      onDone(val);
+    }
+    input.addEventListener('keydown', function(e){ if (e.key === 'Enter') finish(); });
+    input.addEventListener('blur', finish);
+  }
+
+  canvas.addEventListener('pointerdown', function(e){
+    e.preventDefault();
+    var pos = getPos(e);
+    if (mode === 'note'){
+      current = { type: 'note', point: pos, text: '' };
+      redraw();
+      promptText(pos, function(val){
+        current.text = val;
+        actions.push(current);
+        current = null;
+        redraw();
+        saveState();
+      });
+      return;
+    }
+    drawing = true;
+    if (mode === 'free'){
+      current = { type: 'free', points: [pos] };
+    } else {
+      current = { type: mode, points: [pos, pos] };
+    }
+  });
+
+  canvas.addEventListener('pointermove', function(e){
+    if (!drawing || !current) return;
+    e.preventDefault();
+    var pos = getPos(e);
+    if (mode === 'free'){
+      current.points.push(pos);
+    } else {
+      current.points[1] = pos;
+    }
+    redraw();
+  });
+
+  function endStroke(e){
+    if (!drawing || !current) return;
+    drawing = false;
+    var finished = current;
+    current = null;
+    if (finished.type === 'measure'){
+      var mid = { x: (finished.points[0].x + finished.points[1].x) / 2, y: (finished.points[0].y + finished.points[1].y) / 2 };
+      actions.push(finished);
+      redraw();
+      promptText(mid, function(val){
+        finished.text = val;
+        redraw();
+        saveState();
+      });
+    } else {
+      actions.push(finished);
+      redraw();
+      saveState();
+    }
+  }
+
+  canvas.addEventListener('pointerup', endStroke);
+  canvas.addEventListener('pointerleave', function(e){ if (drawing) endStroke(e); });
+
+  document.getElementById('undo-btn').addEventListener('click', function(){
+    actions.pop();
+    redraw();
+    saveState();
+  });
+  document.getElementById('clear-btn').addEventListener('click', function(){
+    actions = [];
+    redraw();
+    saveState();
+  });
+  document.getElementById('save-btn').addEventListener('click', function(){
+    canvas.toBlob(function(blob){
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = 'room-sketch.png';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(function(){ URL.revokeObjectURL(url); }, 2000);
+      setStatus('Image downloaded');
+    }, 'image/png');
+  });
+
+  loadState();
+})();
+</script>
+</body>
+</html>
