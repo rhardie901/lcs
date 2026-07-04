@@ -3,52 +3,52 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://lewisconstruction.design/</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-07-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://lewisconstruction.design/images/logo.png</image:loc>
-      <image:title>Lewis Construction and Design Logo</image:title>
+      <image:loc>https://lewisconstruction.design/images/lcs-logo-transparent.png</image:loc>
+      <image:title>Lewis Construction Services Logo</image:title>
     </image:image>
     <image:image>
       <image:loc>https://lewisconstruction.design/images/deck.jpeg</image:loc>
-      <image:title>Custom Gazebo Deck - Lewis Construction and Design</image:title>
+      <image:title>Custom Gazebo Deck - Lewis Construction Services</image:title>
     </image:image>
     <image:image>
       <image:loc>https://lewisconstruction.design/images/bathroom.jpeg</image:loc>
-      <image:title>Bathroom Renovation - Lewis Construction and Design</image:title>
+      <image:title>Bathroom Renovation - Lewis Construction Services</image:title>
     </image:image>
     <image:image>
       <image:loc>https://lewisconstruction.design/images/sm_kitchen.jpeg</image:loc>
-      <image:title>Kitchen Remodel - Lewis Construction and Design</image:title>
+      <image:title>Kitchen Remodel - Lewis Construction Services</image:title>
     </image:image>
     <image:image>
       <image:loc>https://lewisconstruction.design/images/house_front.jpg</image:loc>
-      <image:title>Full Interior and Exterior Renovation - Lewis Construction and Design</image:title>
+      <image:title>Full Interior and Exterior Renovation - Lewis Construction Services</image:title>
     </image:image>
     <image:image>
       <image:loc>https://lewisconstruction.design/images/house_deck.jpg</image:loc>
-      <image:title>Elevated Deck Build - Lewis Construction and Design</image:title>
+      <image:title>Elevated Deck Build - Lewis Construction Services</image:title>
     </image:image>
     <image:image>
       <image:loc>https://lewisconstruction.design/images/brick_front.jpg</image:loc>
-      <image:title>Brick Ranch Renovation - Lewis Construction and Design</image:title>
+      <image:title>Brick Ranch Renovation - Lewis Construction Services</image:title>
     </image:image>
     <image:image>
       <image:loc>https://lewisconstruction.design/images/addition_before.png</image:loc>
-      <image:title>Before - Second Floor Addition Project 1 - Lewis Construction and Design</image:title>
+      <image:title>Before - Second Floor Addition Project 1 - Lewis Construction Services</image:title>
     </image:image>
     <image:image>
       <image:loc>https://lewisconstruction.design/images/addition_after.png</image:loc>
-      <image:title>After - Second Floor Addition Project 1 - Lewis Construction and Design</image:title>
+      <image:title>After - Second Floor Addition Project 1 - Lewis Construction Services</image:title>
     </image:image>
     <image:image>
       <image:loc>https://lewisconstruction.design/images/addition2_before.png</image:loc>
-      <image:title>Before - Full Gut Renovation and Rebuild Project 2 - Lewis Construction and Design</image:title>
+      <image:title>Before - Full Gut Renovation and Rebuild Project 2 - Lewis Construction Services</image:title>
     </image:image>
     <image:image>
       <image:loc>https://lewisconstruction.design/images/addition2_after.jpg</image:loc>
-      <image:title>After - Full Gut Renovation and Rebuild Project 2 - Lewis Construction and Design</image:title>
+      <image:title>After - Full Gut Renovation and Rebuild Project 2 - Lewis Construction Services</image:title>
     </image:image>
   </url>
 </urlset>
