@@ -244,6 +244,8 @@
 
   function redraw(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
     drawGrid();
     actions.forEach(drawAction);
     if (current) drawAction(current);
