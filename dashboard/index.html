@@ -50,6 +50,10 @@ nav{background:var(--navy);padding:0 48px;border-bottom:1px solid rgba(197,160,8
 .badge-pending,.badge-on_hold,.badge-at_risk{background:var(--warning-bg);color:var(--warning);}
 .badge-declined,.badge-blocked,.badge-behind,.badge-over{background:var(--danger-bg);color:var(--danger);}
 .badge-archived{background:#f0f0f0;color:#aaa;}
+.badge-drawing{background:var(--info-bg);color:var(--info);}
+.badge-invoice{background:var(--warning-bg);color:var(--warning);}
+.badge-correspondence{background:var(--success-bg);color:var(--success);}
+.badge-other{background:#f0f0f0;color:#888;}
 .progress-wrap{margin-top:12px;}
 .progress-row{display:flex;justify-content:space-between;font-size:0.78rem;color:#999;margin-bottom:6px;}
 .progress-row span:first-child{color:var(--ink);font-weight:600;}
@@ -145,6 +149,7 @@ tr:last-child td{border-bottom:none;}
       <button class="nav-item" onclick="showPage('schedule',this)"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Schedule</button>
       <button class="nav-item" onclick="showPage('changeorders',this)"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>Change orders</button>
       <button class="nav-item" onclick="showPage('reports',this)"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>Status reports</button>
+      <button class="nav-item" onclick="showPage('files',this)"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Files</button>
     </div>
   </aside>
   <main class="main">
@@ -191,6 +196,12 @@ tr:last-child td{border-bottom:none;}
       <div class="page-heading"><h1>Status reports</h1><p>Weekly project status and client updates</p></div>
       <div class="project-select-wrap"><label>Project</label><select id="report-project-select" class="project-select" onchange="loadReports()"><option value="">Select a project</option></select></div>
       <div id="reports-content"></div>
+    </div>
+
+    <div id="page-files" class="page">
+      <div class="page-heading"><h1>Files</h1><p>Drawings, invoices, and correspondence by project</p></div>
+      <div class="project-select-wrap"><label>Project</label><select id="files-project-select" class="project-select" onchange="loadFiles()"><option value="">Select a project</option></select></div>
+      <div id="files-content"></div>
     </div>
   </main>
 </div>
@@ -267,6 +278,17 @@ tr:last-child td{border-bottom:none;}
   <div class="modal-actions"><button class="btn" onclick="closeModal('modal-report')">Cancel</button><button class="btn btn-primary" onclick="saveReport()">Save report</button></div>
 </div></div>
 
+<div id="modal-file" class="modal-overlay"><div class="modal">
+  <div class="modal-header"><div class="modal-title">Upload file</div><button class="btn btn-sm" onclick="closeModal('modal-file')">✕</button></div>
+  <div class="form-grid">
+    <div class="form-group full"><label>File *</label><input type="file" id="f-file"></div>
+    <div class="form-group full"><label>Category</label><select id="f-category"><option value="drawing">Drawing</option><option value="invoice">Invoice</option><option value="correspondence">Correspondence</option><option value="other">Other</option></select></div>
+    <div class="form-group full"><label>Notes</label><textarea id="f-notes" style="min-height:60px;" placeholder="Optional"></textarea></div>
+  </div>
+  <div id="f-progress" style="font-size:0.78rem;color:#999;margin-bottom:12px;display:none;">Uploading…</div>
+  <div class="modal-actions"><button class="btn" onclick="closeModal('modal-file')">Cancel</button><button class="btn btn-primary" id="f-upload-btn" onclick="uploadFile()">Upload</button></div>
+</div></div>
+
 <script>
 const ACCESS_CODE='lewis2026'; // change if you'd rather reuse the quote generator's code (lewis2026)
 function checkAuth(){
@@ -286,7 +308,7 @@ const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZ
 const sbH={'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json','Prefer':'return=representation'};
 
 let projects=[];
-let curBudget=null,curSched=null,curCO=null,curReport=null;
+let curBudget=null,curSched=null,curCO=null,curReport=null,curFiles=null;
 let editBudgetId=null,editTaskId=null,editCOId=null,editReportId=null,editProjectId=null;
 const budgetCache={},taskCache={},coCache={},reportCache={};
 
@@ -315,14 +337,14 @@ function showPage(id,btn){
   document.querySelectorAll('.nav-item').forEach(b=>b.classList.remove('active'));
   document.getElementById('page-'+id).classList.add('active');
   if(btn)btn.classList.add('active');
-  ({dashboard:loadDashboard,projects:loadProjects})[id]?.();
+  ({dashboard:loadDashboard,projects:loadProjects,files:loadFiles})[id]?.();
 }
 
 function openModal(id){document.getElementById(id).classList.add('open');}
 function closeModal(id){document.getElementById(id).classList.remove('open');}
 
 function populateSelects(){
-  ['budget-project-select','schedule-project-select','co-project-select','report-project-select'].forEach(id=>{
+  ['budget-project-select','schedule-project-select','co-project-select','report-project-select','files-project-select'].forEach(id=>{
     const sel=document.getElementById(id),val=sel.value;
     sel.innerHTML='<option value="">Select a project</option>'+projects.filter(p=>p.status!=='archived').map(p=>`<option value="${p.id}">${p.name}</option>`).join('');
     if(val)sel.value=val;
@@ -766,6 +788,77 @@ async function downloadReportPDF(id){
 
   const filename=`${(proj.name||'status-report').replace(/[^a-z0-9]/gi,'-').toLowerCase()}-week${r.week_number||r.report_date||'report'}.pdf`;
   doc.save(filename);
+}
+
+const FILE_BUCKET='project-files';
+const fileCache={};
+
+function categoryLabel(c){return{drawing:'Drawing',invoice:'Invoice',correspondence:'Correspondence',other:'Other'}[c]||c;}
+
+function fmtSize(bytes){
+  if(!bytes)return'—';
+  const units=['B','KB','MB','GB'];let i=0,n=bytes;
+  while(n>=1024&&i<units.length-1){n/=1024;i++;}
+  return`${n.toFixed(i===0?0:1)} ${units[i]}`;
+}
+
+function fileUrl(path){return`${SB_URL}/storage/v1/object/public/${FILE_BUCKET}/${path}`;}
+
+async function loadFiles(){
+  const pid=document.getElementById('files-project-select').value;
+  if(!pid){document.getElementById('files-content').innerHTML='';return;}
+  curFiles=pid;
+  try{
+    const files=await sb('GET','files',null,`?project_id=eq.${pid}&order=uploaded_at.desc`);
+    files.forEach(f=>fileCache[f.id]=f);
+    document.getElementById('files-content').innerHTML=`
+      <div class="section-header"><div class="section-title">Files</div><button class="btn btn-primary btn-sm" onclick="document.getElementById('f-file').value='';document.getElementById('f-category').value='drawing';document.getElementById('f-notes').value='';openModal('modal-file')">+ Upload file</button></div>
+      ${files.length===0?'<div class="empty-state">No files uploaded yet.</div>':`
+      <div class="card" style="padding:0;overflow:hidden;"><div class="table-wrap"><table>
+        <thead><tr><th>File</th><th>Category</th><th>Uploaded</th><th>Size</th><th>Notes</th><th></th></tr></thead>
+        <tbody>${files.map(f=>`<tr>
+          <td style="font-weight:600;"><a href="${fileUrl(f.file_path)}" target="_blank" rel="noopener" style="color:var(--navy);">${f.file_name}</a></td>
+          <td><span class="badge badge-${f.category}">${categoryLabel(f.category)}</span></td>
+          <td>${(f.uploaded_at||'').slice(0,10)}</td>
+          <td>${fmtSize(f.file_size)}</td>
+          <td style="color:#bbb;">${f.notes||''}</td>
+          <td><button class="btn btn-sm" style="color:var(--danger);" onclick="deleteFile('${f.id}')">Delete</button></td>
+        </tr>`).join('')}</tbody>
+      </table></div></div>`}`;
+  }catch(e){showError('Failed to load files: '+e.message);}
+}
+
+async function uploadFile(){
+  const input=document.getElementById('f-file');
+  const file=input.files[0];
+  if(!file){showError('Choose a file to upload.');return;}
+  if(!curFiles){showError('Select a project first.');return;}
+  const btn=document.getElementById('f-upload-btn'),progress=document.getElementById('f-progress');
+  btn.disabled=true;progress.style.display='block';
+  try{
+    const safeName=file.name.replace(/[^a-zA-Z0-9._-]/g,'_');
+    const path=`${curFiles}/${Date.now()}-${safeName}`;
+    const res=await fetch(`${SB_URL}/storage/v1/object/${FILE_BUCKET}/${path}`,{
+      method:'POST',
+      headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':file.type||'application/octet-stream'},
+      body:file
+    });
+    if(!res.ok)throw new Error(await res.text());
+    await sb('POST','files',{project_id:curFiles,category:document.getElementById('f-category').value,file_name:file.name,file_path:path,file_size:file.size,notes:document.getElementById('f-notes').value});
+    closeModal('modal-file');
+    loadFiles();
+  }catch(e){showError('Upload failed: '+e.message);}
+  finally{btn.disabled=false;progress.style.display='none';}
+}
+
+async function deleteFile(id){
+  const f=fileCache[id];if(!f)return;
+  if(!confirm(`Delete "${f.file_name}"? This can't be undone.`))return;
+  try{
+    await fetch(`${SB_URL}/storage/v1/object/${FILE_BUCKET}/${f.file_path}`,{method:'DELETE',headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
+    await fetch(`${SB_URL}/rest/v1/files?id=eq.${id}`,{method:'DELETE',headers:sbH});
+    loadFiles();
+  }catch(e){showError('Delete failed: '+e.message);}
 }
 
 function showSuccess(msg){
