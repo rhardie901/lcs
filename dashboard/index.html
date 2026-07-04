@@ -52,6 +52,7 @@ nav{background:var(--navy);padding:0 48px;border-bottom:1px solid rgba(197,160,8
 .badge-archived{background:#f0f0f0;color:#aaa;}
 .badge-drawing{background:var(--info-bg);color:var(--info);}
 .badge-invoice{background:var(--warning-bg);color:var(--warning);}
+.badge-contract{background:#e8e3f5;color:#5b3fa0;}
 .badge-correspondence{background:var(--success-bg);color:var(--success);}
 .badge-other{background:#f0f0f0;color:#888;}
 .progress-wrap{margin-top:12px;}
@@ -282,7 +283,7 @@ tr:last-child td{border-bottom:none;}
   <div class="modal-header"><div class="modal-title">Upload file</div><button class="btn btn-sm" onclick="closeModal('modal-file')">✕</button></div>
   <div class="form-grid">
     <div class="form-group full"><label>File *</label><input type="file" id="f-file"></div>
-    <div class="form-group full"><label>Category</label><select id="f-category"><option value="drawing">Drawing</option><option value="invoice">Invoice</option><option value="correspondence">Correspondence</option><option value="other">Other</option></select></div>
+    <div class="form-group full"><label>Category</label><select id="f-category"><option value="drawing">Drawing</option><option value="invoice">Invoice</option><option value="contract">Contract</option><option value="correspondence">Correspondence</option><option value="other">Other</option></select></div>
     <div class="form-group full"><label>Notes</label><textarea id="f-notes" style="min-height:60px;" placeholder="Optional"></textarea></div>
   </div>
   <div id="f-progress" style="font-size:0.78rem;color:#999;margin-bottom:12px;display:none;">Uploading…</div>
@@ -793,7 +794,7 @@ async function downloadReportPDF(id){
 const FILE_BUCKET='project-files';
 const fileCache={};
 
-function categoryLabel(c){return{drawing:'Drawing',invoice:'Invoice',correspondence:'Correspondence',other:'Other'}[c]||c;}
+function categoryLabel(c){return{drawing:'Drawing',invoice:'Invoice',contract:'Contract',correspondence:'Correspondence',other:'Other'}[c]||c;}
 
 function fmtSize(bytes){
   if(!bytes)return'—';
@@ -803,6 +804,25 @@ function fmtSize(bytes){
 }
 
 function fileUrl(path){return`${SB_URL}/storage/v1/object/public/${FILE_BUCKET}/${path}`;}
+
+async function getSignedUrl(path){
+  const res=await fetch(`${SB_URL}/storage/v1/object/sign/${FILE_BUCKET}/${path}`,{
+    method:'POST',
+    headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json'},
+    body:JSON.stringify({expiresIn:3600})
+  });
+  if(!res.ok)throw new Error(await res.text());
+  const data=await res.json();
+  return`${SB_URL}/storage/v1${data.signedURL}`;
+}
+
+async function openFile(id){
+  const f=fileCache[id];if(!f)return;
+  try{
+    const url=await getSignedUrl(f.file_path);
+    window.open(url,'_blank','noopener');
+  }catch(e){showError('Failed to open file: '+e.message);}
+}
 
 async function loadFiles(){
   const pid=document.getElementById('files-project-select').value;
@@ -817,7 +837,7 @@ async function loadFiles(){
       <div class="card" style="padding:0;overflow:hidden;"><div class="table-wrap"><table>
         <thead><tr><th>File</th><th>Category</th><th>Uploaded</th><th>Size</th><th>Notes</th><th></th></tr></thead>
         <tbody>${files.map(f=>`<tr>
-          <td style="font-weight:600;"><a href="${fileUrl(f.file_path)}" target="_blank" rel="noopener" style="color:var(--navy);">${f.file_name}</a></td>
+          <td style="font-weight:600;"><a href="#" onclick="openFile('${f.id}');return false;" style="color:var(--navy);cursor:pointer;">${f.file_name}</a></td>
           <td><span class="badge badge-${f.category}">${categoryLabel(f.category)}</span></td>
           <td>${(f.uploaded_at||'').slice(0,10)}</td>
           <td>${fmtSize(f.file_size)}</td>
