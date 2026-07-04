@@ -47,7 +47,7 @@ nav{background:var(--navy);padding:0 48px;border-bottom:1px solid rgba(197,160,8
 .badge-active,.badge-approved,.badge-accepted,.badge-on_track{background:var(--success-bg);color:var(--success);}
 .badge-planning,.badge-oversight,.badge-new,.badge-in_progress{background:var(--info-bg);color:var(--info);}
 .badge-complete,.badge-not_started,.badge-reviewed{background:#f0f0f0;color:#888;}
-.badge-pending,.badge-on_hold,.badge-at_risk{background:var(--warning-bg);color:var(--warning);}
+.badge-pending,.badge-on_hold,.badge-at_risk,.badge-pending_award{background:var(--warning-bg);color:var(--warning);}
 .badge-declined,.badge-blocked,.badge-behind,.badge-over{background:var(--danger-bg);color:var(--danger);}
 .badge-archived{background:#f0f0f0;color:#aaa;}
 .badge-drawing{background:var(--info-bg);color:var(--info);}
@@ -215,7 +215,7 @@ tr:last-child td{border-bottom:none;}
     <div class="form-group"><label>Client name *</label><input id="p-client"></div>
     <div class="form-group"><label>Client email</label><input id="p-email" type="email"></div>
     <div class="form-group"><label>Address</label><input id="p-address"></div>
-    <div class="form-group"><label>Status</label><select id="p-status"><option value="active">Active</option><option value="on_hold">On hold</option><option value="complete">Complete</option></select></div>
+    <div class="form-group"><label>Status</label><select id="p-status"><option value="pending_award">Pending award</option><option value="active">Active</option><option value="on_hold">On hold</option><option value="complete">Complete</option></select></div>
     <div class="form-group"><label>Approved budget ($)</label><input id="p-budget" type="number"></div>
     <div class="form-group"><label>Start date</label><input id="p-start" type="date"></div>
     <div class="form-group"><label>Target end date</label><input id="p-end" type="date"></div>
@@ -328,7 +328,7 @@ function showError(msg){
 }
 
 function badge(s){
-  const L={active:'Active',planning:'Planning',oversight:'Oversight',complete:'Complete',pending:'Pending',approved:'Approved',declined:'Declined',new:'New',accepted:'Accepted',on_hold:'On hold',reviewed:'Reviewed',not_started:'Not started',in_progress:'In progress',blocked:'Blocked',on_track:'On track',at_risk:'At risk',behind:'Behind',over:'Over',archived:'Archived'};
+  const L={active:'Active',planning:'Planning',oversight:'Oversight',complete:'Complete',pending:'Pending',pending_award:'Pending award',approved:'Approved',declined:'Declined',new:'New',accepted:'Accepted',on_hold:'On hold',reviewed:'Reviewed',not_started:'Not started',in_progress:'In progress',blocked:'Blocked',on_track:'On track',at_risk:'At risk',behind:'Behind',over:'Over',archived:'Archived'};
   return`<span class="badge badge-${s}">${L[s]||s}</span>`;
 }
 
