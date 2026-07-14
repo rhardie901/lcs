@@ -556,34 +556,172 @@
   }
 
   /* ============================================================
-     CTA
+     STAT BAND — full-width navy break
      ============================================================ */
-  .cta-inner {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
+  .stat-band { padding: clamp(48px, 6vw, 76px) 0; }
+  .stat-band-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     gap: 32px;
+    padding-top: 28px;
+    border-top: 1px solid rgba(197, 160, 89, 0.35);
   }
-  .cta-inner h2 {
+  .band-num {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(1.6rem, 2.6vw, 2.4rem);
+    color: var(--white);
+    line-height: 1.1;
+  }
+  .band-num em { font-style: normal; color: var(--gold); }
+  .band-label {
+    margin-top: 6px;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gray);
+  }
+  @media (max-width: 860px) {
+    .stat-band-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
+  }
+
+  /* ============================================================
+     RECENT WORK — project outcome cards
+     ============================================================ */
+  .outcomes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  .outcome-card {
+    border: 1px solid var(--gray);
+    background: var(--white);
+    padding: clamp(24px, 3vw, 36px);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .outcome-tag {
+    align-self: flex-start;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: var(--navy);
+    color: var(--white);
+    padding: 5px 10px;
+  }
+  .outcome-card h4 {
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: clamp(1.5rem, 2.4vw, 2rem);
-    color: var(--white);
-    max-width: 22ch;
+    font-size: 1.15rem;
+    color: var(--navy);
+    line-height: 1.35;
   }
-  .cta-contact {}
-  .cta-contact a {
+  .outcome-card p {
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  .outcome-meta {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    border-top: 1px solid var(--gray);
+    padding-top: 14px;
+    margin-top: auto;
+  }
+  @media (max-width: 900px) {
+    .outcomes-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ============================================================
+     VOICES — owner case study / client quotes
+     ============================================================ */
+  .voices-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 28px;
+  }
+  .voice-card {
+    background: var(--white);
+    border: 1px solid var(--gray);
+    border-top: 3px solid var(--gold);
+    padding: clamp(24px, 3vw, 36px);
+  }
+  .voice-card blockquote {
+    font-size: 1.05rem;
+    color: var(--navy);
+    font-weight: 500;
+    line-height: 1.55;
+  }
+  .voice-card cite {
     display: block;
+    margin-top: 18px;
+    font-style: normal;
     font-family: var(--font-mono);
-    font-size: 1rem;
-    color: var(--white);
-    border-bottom: 1px solid var(--gold);
-    padding-bottom: 3px;
-    margin-bottom: 12px;
-    width: fit-content;
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
   }
-  .cta-contact a:last-child { margin-bottom: 0; }
+  .voice-card cite strong { color: var(--navy); }
+
+  /* ============================================================
+     CTA
+     ============================================================ */
+  .bg-navy .eyebrow { color: var(--gold); }
+  .cta-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 48px;
+    align-items: center;
+  }
+  .cta-copy h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.6rem, 2.4vw, 2.1rem);
+    color: var(--white);
+    letter-spacing: -0.01em;
+  }
+  .cta-copy p {
+    margin-top: 14px;
+    color: rgba(255,255,255,0.72);
+    max-width: 46ch;
+    line-height: 1.65;
+  }
+  .cta-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .btn-gold {
+    background: var(--gold);
+    color: var(--navy);
+    text-align: center;
+  }
+  .btn-gold:hover, .btn-gold:focus-visible { background: #d4b171; }
+  .btn-ghost-light {
+    border-color: rgba(255,255,255,0.4);
+    color: var(--white);
+    text-align: center;
+  }
+  .btn-ghost-light:hover, .btn-ghost-light:focus-visible {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+  .cta-micro {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--gray);
+    text-align: center;
+    letter-spacing: 0.04em;
+  }
+  .cta-micro a { border-bottom: 1px solid var(--gold); padding-bottom: 2px; }
+  @media (max-width: 760px) {
+    .cta-grid { grid-template-columns: 1fr; }
+  }
 
   /* ============================================================
      FOOTER
@@ -669,7 +807,7 @@
         <h1>GENERAL CONTRACTING FOR COMMERCIAL &amp; RESIDENTIAL PROJECTS</h1>
         <p>Lewis Construction Services delivers commercial and residential construction across DC, Maryland, and Virginia — licensed, experienced, and built to handle projects of every scale.</p>
         <div class="hero-actions">
-          <a href="#contact" class="btn btn-primary">Start a Project</a>
+          <a href="#contact" class="btn btn-primary">Request a Site Walkthrough</a>
           <a href="#work" class="btn btn-ghost">See Our Work</a>
         </div>
         <div class="credentials">
@@ -744,6 +882,32 @@
         <div class="process-step">
           <h4>Walkthrough &amp; Close-Out</h4>
           <p>Final walkthrough, punch list resolution, and full project documentation handed over on close.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       STAT BAND — full-width navy break
+       ============================================================ -->
+  <section class="bg-navy stat-band" aria-label="Company credentials">
+    <div class="wrap">
+      <div class="stat-band-grid">
+        <div>
+          <div class="band-num">30<em>+</em></div>
+          <div class="band-label">Years in the DMV</div>
+        </div>
+        <div>
+          <div class="band-num">DC · MD · VA</div>
+          <div class="band-label">Licensed Service Area</div>
+        </div>
+        <div>
+          <div class="band-num">#92880</div>
+          <div class="band-label">MD MHIC License</div>
+        </div>
+        <div>
+          <div class="band-num">Licensed <em>&amp;</em> Insured</div>
+          <div class="band-label">Every Project, Every Scope</div>
         </div>
       </div>
     </div>
@@ -874,6 +1038,103 @@
     </div>
   </section>
 
+  <!-- ============================================================
+       RECENT WORK — project outcomes
+       (Dollar values optional: delete a meta <div> pair to remove.)
+       ============================================================ -->
+  <section id="recent-work">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Recent Work</div>
+        <h2>Walked the site. Built the vision.</h2>
+      </div>
+      <div class="outcomes-grid">
+        <div class="outcome-card">
+          <span class="outcome-tag">Residential · Conversion</span>
+          <h4>Single-Family to Two-Family Conversion</h4>
+          <p>Full structural conversion of a Washington, D.C. single-family home into a code-compliant two-family dwelling — designed, permitted, and delivered by Lewis Construction Services.</p>
+          <div class="outcome-meta">
+            <div>
+              <div class="stat-label">Value</div>
+              <div class="stat-value">$300K</div>
+            </div>
+            <div>
+              <div class="stat-label">Location</div>
+              <div class="stat-value">Washington, DC</div>
+            </div>
+            <div>
+              <div class="stat-label">Completed</div>
+              <div class="stat-value">2026</div>
+            </div>
+          </div>
+        </div>
+        <div class="outcome-card">
+          <span class="outcome-tag">Residential · Gut Renovation</span>
+          <h4>Total Interior Renovation, 3-Story Home</h4>
+          <p>Complete interior renovation of a three-story Baltimore residence — demolition through finish work, one team managed end to end by Lewis Construction Services on a single schedule.</p>
+          <div class="outcome-meta">
+            <div>
+              <div class="stat-label">Value</div>
+              <div class="stat-value">$150K</div>
+            </div>
+            <div>
+              <div class="stat-label">Location</div>
+              <div class="stat-value">Baltimore, MD</div>
+            </div>
+            <div>
+              <div class="stat-label">Completed</div>
+              <div class="stat-value">2026</div>
+            </div>
+          </div>
+        </div>
+        <div class="outcome-card">
+          <span class="outcome-tag">Owner-Affiliated · Rebuild</span>
+          <h4>Total Renovation &amp; Rebuild</h4>
+          <p>Full-property renovation and rebuild for CaRo Investors, an ownership group affiliated with Lewis Construction Services — held to the same scope, schedule, and close-out standard as every client project.</p>
+          <div class="outcome-meta">
+            <div>
+              <div class="stat-label">Value</div>
+              <div class="stat-value">$280K</div>
+            </div>
+            <div>
+              <div class="stat-label">Location</div>
+              <div class="stat-value">Oxon Hill, MD</div>
+            </div>
+            <div>
+              <div class="stat-label">Completed</div>
+              <div class="stat-value">2025</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       VOICES — owner case study (+ client testimonial slot)
+       ============================================================ -->
+  <section class="bg-tint" id="voices">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">From the Field</div>
+        <h2>The standard behind every close-out.</h2>
+      </div>
+      <div class="voices-grid">
+        <div class="voice-card">
+          <blockquote>&ldquo;On the Oxon Hill rebuild, we ran the same process we use for every client — a vetted team, a real schedule, full close-out documentation. It&rsquo;s the standard we hold every project to, ours included.&rdquo;</blockquote>
+          <cite><strong>Carroll Lewis</strong> · Owner, Lewis Construction Services</cite>
+        </div>
+        <!-- CLIENT TESTIMONIAL SLOT — uncomment and replace the quote text
+             with a real, permissioned client quote before publishing.
+        <div class="voice-card">
+          <blockquote>&ldquo;[Real client quote goes here.]&rdquo;</blockquote>
+          <cite><strong>Homeowner</strong> · Washington, DC</cite>
+        </div>
+        -->
+      </div>
+    </div>
+  </section>
+
   <div class="wrap"><div class="dim-line"></div></div>
 
   <!-- ============================================================
@@ -887,7 +1148,7 @@
           <h2>A licensed general contractor with 30 years in the DMV.</h2>
         </div>
         <div class="about-right">
-          <p>Lewis Construction Services has delivered residential and commercial projects across DC, Maryland, and Virginia for more than three decades — with the credentials, capacity, and trade relationships to handle scopes of every scale.</p>
+          <p>Lewis Construction Services has delivered residential and commercial projects across DC, Maryland, and Virginia for more than three decades — with the credentials, capacity, and relationships to handle scopes of every scale.</p>
           <p>Licensed, insured, and equipped across a full range of construction disciplines, from cosmetic renovations to ground-up commercial build-outs.</p>
           <div class="about-stats">
             <div>
@@ -912,11 +1173,16 @@
        CTA
        ============================================================ -->
   <section class="bg-navy" id="contact">
-    <div class="wrap cta-inner">
-      <h2>Ready to talk through your project?</h2>
-      <div class="cta-contact">
-        <a href="tel:3014522823">301.452.2823</a>
-        <a href="mailto:info@lewisconstruction.design">info@lewisconstruction.design</a>
+    <div class="wrap cta-grid">
+      <div class="cta-copy">
+        <div class="eyebrow">Get Started</div>
+        <h2>It starts with a walkthrough, not a sales call.</h2>
+        <p>Every Lewis Construction Services project begins on site — a walkthrough of your property, followed by a detailed scope of work and an itemized proposal. No generic allowances, no surprises at close-out.</p>
+      </div>
+      <div class="cta-actions">
+        <a href="tel:3014522823" class="btn btn-gold">Request a Site Walkthrough</a>
+        <a href="mailto:info@lewisconstruction.design" class="btn btn-ghost-light">Get a Scope &amp; Estimate</a>
+        <span class="cta-micro"><a href="tel:3014522823">301.452.2823</a> · <a href="mailto:info@lewisconstruction.design">info@lewisconstruction.design</a></span>
       </div>
     </div>
   </section>
