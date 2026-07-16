@@ -698,32 +698,46 @@
   .cta-actions {
     display: flex;
     flex-direction: column;
-    gap: 14px;
-  }
-  .btn-gold {
-    background: var(--gold);
-    color: var(--navy);
+    gap: 22px;
+    align-items: center;
     text-align: center;
+    border-left: 1px solid rgba(197,160,89,0.3);
+    padding-left: clamp(24px, 4vw, 48px);
   }
-  .btn-gold:hover, .btn-gold:focus-visible { background: #d4b171; }
-  .btn-ghost-light {
-    border-color: rgba(255,255,255,0.4);
-    color: var(--white);
-    text-align: center;
-  }
-  .btn-ghost-light:hover, .btn-ghost-light:focus-visible {
-    border-color: var(--gold);
+  .cta-contact-label {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
     color: var(--gold);
   }
-  .cta-micro {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    color: var(--gray);
-    text-align: center;
-    letter-spacing: 0.04em;
+  .cta-phone {
+    display: block;
+    margin-top: 6px;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(1.7rem, 3vw, 2.3rem);
+    letter-spacing: -0.01em;
+    color: var(--white);
   }
-  .cta-micro a { border-bottom: 1px solid var(--gold); padding-bottom: 2px; }
+  .cta-phone:hover, .cta-phone:focus-visible { color: var(--gold); }
+  .cta-email {
+    display: block;
+    margin-top: 4px;
+    font-family: var(--font-mono);
+    font-size: 0.92rem;
+    color: rgba(255,255,255,0.75);
+    border-bottom: 1px solid rgba(255,255,255,0.25);
+    padding-bottom: 3px;
+  }
+  .cta-email:hover, .cta-email:focus-visible { color: var(--gold); border-color: var(--gold); }
   @media (max-width: 760px) {
+    .cta-actions {
+      border-left: none;
+      border-top: 1px solid rgba(197,160,89,0.3);
+      padding-left: 0;
+      padding-top: 28px;
+    }
     .cta-grid { grid-template-columns: 1fr; }
   }
 
@@ -811,7 +825,7 @@
         <h1>GENERAL CONTRACTING FOR COMMERCIAL &amp; RESIDENTIAL PROJECTS</h1>
         <p>Lewis Construction Services delivers commercial and residential construction across DC, Maryland, and Virginia — licensed, experienced, and built to handle projects of every scale.</p>
         <div class="hero-actions">
-          <a href="#contact" class="btn btn-primary">Request a Site Walkthrough</a>
+          <a href="#contact" class="btn btn-primary">Contact Us</a>
           <a href="#work" class="btn btn-ghost">See Our Work</a>
         </div>
         <div class="credentials">
@@ -1184,9 +1198,14 @@
         <p>Every Lewis Construction Services project begins on site — a walkthrough of your property, followed by a detailed scope of work and an itemized proposal. No generic allowances, no surprises at close-out.</p>
       </div>
       <div class="cta-actions">
-        <a href="tel:3014522823" class="btn btn-gold">Request a Site Walkthrough</a>
-        <a href="mailto:info@lewisconstruction.design" class="btn btn-ghost-light">Get a Scope &amp; Estimate</a>
-        <span class="cta-micro"><a href="tel:3014522823">301.452.2823</a> · <a href="mailto:info@lewisconstruction.design">info@lewisconstruction.design</a></span>
+        <div>
+          <div class="cta-contact-label">Call</div>
+          <a href="tel:3014522823" class="cta-phone">301.452.2823</a>
+        </div>
+        <div>
+          <div class="cta-contact-label">Email</div>
+          <a href="mailto:info@lewisconstruction.design" class="cta-email">info@lewisconstruction.design</a>
+        </div>
       </div>
     </div>
   </section>
