@@ -153,37 +153,15 @@
   }
 
   /* --- Logo lockup ---
-     SVG LC monogram + LEWIS (800) / CONSTRUCTION SERVICES INC (300, tracked) */
-  .logo { display: flex; align-items: center; gap: 12px; }
+     Single unified logo file (icon + Lewis script + Construction Services Inc) */
+  .logo { display: flex; align-items: center; }
 
-  .logo-icon {
-    height: 56px;
+  .logo-full {
+    height: 64px;
     width: auto;
     flex-shrink: 0;
     object-fit: contain;
   }
-
-  .logo-text { line-height: 1; }
-  .logo-text .lewis-img {
-    height: 44px;
-    max-height: 44px;
-    width: auto;
-    max-width: 160px;
-    display: block;
-    object-fit: contain;
-  }
-  .logo-text .sub {
-    font-family: var(--font-display);
-    font-weight: 500;
-    font-size: 0.62rem;
-    letter-spacing: 0.18em;
-    color: var(--ink);
-    text-transform: uppercase;
-    display: block;
-    margin-top: 4px;
-    white-space: nowrap;
-  }
-  .logo-text .sub .inc { color: #A0A8B0; font-weight: 300; }
 
   nav.primary-nav { display: flex; align-items: center; gap: 36px; }
   nav.primary-nav a {
@@ -818,15 +796,9 @@
   <div class="wrap header-inner">
 
     <a href="#home" class="logo" aria-label="Lewis Construction Services, Inc. — home">
-      <img class="logo-icon"
-           src="images/lcs-logo-transparent.png"
-           alt="Lewis Construction Services monogram"
-           aria-hidden="true">
-
-      <div class="logo-text">
-        <img class="lewis-img" src="images/lewis-script-navy.png" alt="Lewis">
-        <span class="sub">CONSTRUCTION SERVICES <span class="inc">INC</span></span>
-      </div>
+      <img class="logo-full"
+           src="images/logo.png"
+           alt="Lewis Construction Services, Inc.">
     </a>
 
     <nav class="primary-nav" id="primary-nav">
