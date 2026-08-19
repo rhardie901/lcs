@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/quote",
+      "destination": "https://lcs-quote-generator.vercel.app",
+      "permanent": false
+    }
+  ]
+}
